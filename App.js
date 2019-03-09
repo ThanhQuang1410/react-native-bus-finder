@@ -8,43 +8,53 @@
  */
 
 import React, {Component} from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Root} from 'native-base'
+import AppRouter from './route/navigation'
+import reducers from './reducers'
+import {PermissionsAndroid} from  'react-native'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const store = createStore(reducers);
+const granted = PermissionsAndroid.check( PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION );
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends React.Component {
+  componentWillMount(){
+      if (granted) {
+          console.log( "You can use the ACCESS_FINE_LOCATION" )
+      }
+      else {
+          console.log( "ACCESS_FINE_LOCATION permission denied" )
+      }
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+          const { latitude, longitude } = coords;
+          let data = {
+              position: {
+                  latitude,
+                  longitude,
+              },
+              region: {
+                  latitude,
+                  longitude,
+                  latitudeDelta: 0.0005,
+                  longitudeDelta: 0.0001,
+              }
+          }
+          store.dispatch({ type: 'current_location', data: data });
+      },
+      (error) => alert(JSON.stringify(error)),
+      { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
+    )
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+        <Provider store={store}>
+            <Root>
+                <AppRouter />
+            </Root>
+        </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
