@@ -40,7 +40,6 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* busfinderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* busfinderTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
-		3EBE765494524FBC824DC408 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B3E1F69BF2499398F8F02B /* libAirMaps.a */; };
 		48043DF8211949C793CCE069 /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 245766910AAD44489FD6F056 /* libRNGestureHandler-tvOS.a */; };
 		5BA46D9D9F2E4350AFE7F94B /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE47C76EC1724576A88B5CD4 /* Roboto_medium.ttf */; };
 		6EB8C5026D8D46239BD7666C /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F57C2F08EF3646A88B2747C4 /* AntDesign.ttf */; };
@@ -49,7 +48,11 @@
 		7F3D7F2FAAAE4828B7E13E5C /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D64601406F49679BE13869 /* libRNGestureHandler.a */; };
 		820A7FEAF26F4A67A2D17D22 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9BC9C80DD3A147A6A9FDF281 /* Entypo.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		8476CCFE22342DBA00B1E9D9 /* libPods-busfinder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8476CCFD22342DBA00B1E9D9 /* libPods-busfinder.a */; };
+		84D65C232234327C00A457D2 /* AirMaps in Resources */ = {isa = PBXBuildFile; fileRef = 84D65C222234327B00A457D2 /* AirMaps */; };
+		84D65C252234328100A457D2 /* AirGoogleMaps in Resources */ = {isa = PBXBuildFile; fileRef = 84D65C242234328100A457D2 /* AirGoogleMaps */; };
 		9CBEEC2C6BDE4926A100E2F4 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 426DFC849084438296223EF5 /* MaterialCommunityIcons.ttf */; };
+		A380D5EF675B4FE8A29D9641 /* marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 67DC6E24B5904784A3A6429A /* marker.png */; };
 		A4DE01494414476EAA584EB3 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB780A364B3848038BA3B3C0 /* FontAwesome.ttf */; };
 		A88679906A0F40F1AD887F68 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D5439648AA24D678140DD42 /* MaterialIcons.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -370,6 +373,7 @@
 		00E356EE1AD99517003FC87E /* busfinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = busfinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* busfinderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = busfinderTests.m; sourceTree = "<group>"; };
+		0263E13E8A47887FC0642BBE /* libPods-busfinder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-busfinder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1003919B4DCE43CB81E76DA4 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		11E6A04BD5B34AA19B193FBD /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		13347769BDBA474496850544 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
@@ -396,10 +400,17 @@
 		43360E0961C14854800EB856 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		4650346AFEA64DBCAC802756 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		67DC6E24B5904784A3A6429A /* marker.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = marker.png; path = ../media/Images/marker.png; sourceTree = "<group>"; };
+		6D3C3AD5529CFA04D7883ECF /* Pods-busfinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-busfinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-busfinder/Pods-busfinder.release.xcconfig"; sourceTree = "<group>"; };
 		6D5439648AA24D678140DD42 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8476CCFA22342C0F00B1E9D9 /* libPods-busfinder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-busfinder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8476CCFD22342DBA00B1E9D9 /* libPods-busfinder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-busfinder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84D65C222234327B00A457D2 /* AirMaps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AirMaps; path = "../node_modules/react-native-maps/lib/ios/AirMaps"; sourceTree = "<group>"; };
+		84D65C242234328100A457D2 /* AirGoogleMaps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AirGoogleMaps; path = "../node_modules/react-native-maps/lib/ios/AirGoogleMaps"; sourceTree = "<group>"; };
 		9BC9C80DD3A147A6A9FDF281 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		A32CB6900FB512387178F417 /* Pods-busfinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-busfinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-busfinder/Pods-busfinder.debug.xcconfig"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B91BDAD4366D4B80AD5CBDB9 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		CB533D9C403B4839967E5A89 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
@@ -442,7 +453,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				7F3D7F2FAAAE4828B7E13E5C /* libRNGestureHandler.a in Frameworks */,
-				3EBE765494524FBC824DC408 /* libAirMaps.a in Frameworks */,
+				8476CCFE22342DBA00B1E9D9 /* libPods-busfinder.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,9 +604,12 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8476CCFD22342DBA00B1E9D9 /* libPods-busfinder.a */,
+				8476CCFA22342C0F00B1E9D9 /* libPods-busfinder.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				0263E13E8A47887FC0642BBE /* libPods-busfinder.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -651,6 +665,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				84D65C242234328100A457D2 /* AirGoogleMaps */,
+				84D65C222234327B00A457D2 /* AirMaps */,
 				13B07FAE1A68108700A75B9A /* busfinder */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* busfinderTests */,
@@ -658,6 +674,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				C3F86EDFC37A446E8B01B43A /* Resources */,
 				844A1A2B223416E400267448 /* Recovered References */,
+				ABCF9F318C6B764A55A051FF /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -702,6 +719,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		ABCF9F318C6B764A55A051FF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A32CB6900FB512387178F417 /* Pods-busfinder.debug.xcconfig */,
+				6D3C3AD5529CFA04D7883ECF /* Pods-busfinder.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -733,6 +759,7 @@
 				11E6A04BD5B34AA19B193FBD /* SimpleLineIcons.ttf */,
 				2698BC49B9E3445F81631F10 /* Zocial.ttf */,
 				1F071CCCB52E44B5AE413CDB /* personal_logo.png */,
+				67DC6E24B5904784A3A6429A /* marker.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -762,10 +789,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "busfinder" */;
 			buildPhases = (
+				1CC815E499B90EE681FFD004 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				B3AA6120A3C333AA53F84F84 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1211,6 +1240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				84D65C232234327C00A457D2 /* AirMaps in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				6EB8C5026D8D46239BD7666C /* AntDesign.ttf in Resources */,
 				820A7FEAF26F4A67A2D17D22 /* Entypo.ttf in Resources */,
@@ -1224,6 +1254,7 @@
 				E968B813D0DD4C73B2DCB424 /* Ionicons.ttf in Resources */,
 				9CBEEC2C6BDE4926A100E2F4 /* MaterialCommunityIcons.ttf in Resources */,
 				A88679906A0F40F1AD887F68 /* MaterialIcons.ttf in Resources */,
+				84D65C252234328100A457D2 /* AirGoogleMaps in Resources */,
 				7C55B4F362EE4EACA1CDD6A2 /* Octicons.ttf in Resources */,
 				5BA46D9D9F2E4350AFE7F94B /* Roboto_medium.ttf in Resources */,
 				D1088281DE324E908829F212 /* Roboto.ttf in Resources */,
@@ -1231,6 +1262,7 @@
 				E7ABEB2C34D54EDAB17E5DC7 /* SimpleLineIcons.ttf in Resources */,
 				70C809EE70F443F89E925D2D /* Zocial.ttf in Resources */,
 				23647212773B4F76BBF4CB34 /* personal_logo.png in Resources */,
+				A380D5EF675B4FE8A29D9641 /* marker.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1266,6 +1298,28 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		1CC815E499B90EE681FFD004 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-busfinder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1279,6 +1333,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		B3AA6120A3C333AA53F84F84 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-busfinder/Pods-busfinder-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-busfinder/Pods-busfinder-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1407,6 +1483,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A32CB6900FB512387178F417 /* Pods-busfinder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1414,8 +1491,8 @@
 				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
-					"$(SRCROOT)..\node_modules\neact-native-mapslibios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
 				);
 				INFOPLIST_FILE = busfinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1432,14 +1509,15 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D3C3AD5529CFA04D7883ECF /* Pods-busfinder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
-					"$(SRCROOT)..\node_modules\neact-native-mapslibios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
 				);
 				INFOPLIST_FILE = busfinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

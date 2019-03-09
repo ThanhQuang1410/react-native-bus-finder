@@ -3,7 +3,7 @@ import AbstractComponent from "../../../base/componetAbstarct";
 import {Text , Container, Fab , Icon } from 'native-base'
 import {Platform,Image} from 'react-native'
 import {connect} from "react-redux";
-import MapView, { Marker , GoogleMap } from 'react-native-maps';
+import MapView, { Marker , PROVIDER_GOOGLE } from 'react-native-maps';
 import markerIcon from '../../../../media/Images/marker.png'
 class Home extends AbstractComponent{
     constructor(props) {
@@ -40,6 +40,7 @@ class Home extends AbstractComponent{
         return(
             <Container>
                 <MapView.Animated
+                    // provider={PROVIDER_GOOGLE}
                     style={{ flex: 1 }}
                     scrollEnabled={true}
                     zoomEnabled={true}
