@@ -40,7 +40,7 @@ class Home extends AbstractComponent{
         return(
             <Container>
                 <MapView.Animated
-                    // provider={PROVIDER_GOOGLE}
+                    provider={PROVIDER_GOOGLE}
                     style={{ flex: 1 }}
                     scrollEnabled={true}
                     zoomEnabled={true}
