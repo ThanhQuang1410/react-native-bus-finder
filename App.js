@@ -15,10 +15,15 @@ import {Root} from 'native-base'
 import AppRouter from './route/navigation'
 import reducers from './reducers'
 import {PermissionsAndroid} from  'react-native'
-
+import RNRestart  from 'react-native-restart'
 const store = createStore(reducers);
 
 export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        console.disableYellowBox = true;
+    }
+
     componentWillMount(){
         navigator.geolocation.getCurrentPosition(
             ({ coords }) => {
@@ -31,14 +36,14 @@ export default class App extends React.Component {
                     region: {
                         latitude,
                         longitude,
-                        latitudeDelta: 0.0005,
-                        longitudeDelta: 0.0001,
+                        latitudeDelta: 0.005,
+                        longitudeDelta: 0.001,
                     }
                 }
                 store.dispatch({ type: 'current_location', data: data });
             },
-            (error) => alert(JSON.stringify(error)),
-            { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
+            (error) => {console.log(error);RNRestart.Restart()},
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         )
     }
     render() {

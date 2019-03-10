@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dimensions, View } from 'react-native';
+import ThumbAction from "./thumbAction";
 
 export default class AbstractComponent extends React.Component {
     createLayout() {
@@ -9,6 +10,7 @@ export default class AbstractComponent extends React.Component {
         return (
             <View style={{ flex: 1 }}>
                 {this.createLayout()}
+                <ThumbAction navigation={this.props.navigation}/>
             </View>
         );
     }

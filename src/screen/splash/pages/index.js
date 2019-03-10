@@ -6,6 +6,12 @@ import { connect } from 'react-redux'
 import NavigationManager from "../../../helper/NavigationManager";
 import Redirect from "./redirect";
 class Splash extends ComponectAbstract{
+    static navigationOptions = () => {
+        let drawerLockMode = 'locked-closed';
+        return {
+            drawerLockMode,
+        };
+    };
     render(){
         if(!this.props.data){
             return(
@@ -20,7 +26,7 @@ class Splash extends ComponectAbstract{
                         resizeMode={'contain'}
                         style={{ width: 200 , height: 200}}
                         source={require("../../../../media/Images/personal_logo.png")}/>
-                    <Spinner color={'#20bf6b'}/>
+                    <Spinner color={'#'}/>
                 </Container>
             )
         }else {
