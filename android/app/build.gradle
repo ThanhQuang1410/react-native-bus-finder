@@ -103,6 +103,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -131,15 +132,22 @@ android {
             }
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation project(':react-native-restart')
     implementation project(':react-native-maps')
     implementation project(':react-native-gesture-handler')
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation 'com.facebook.react:react-native:+'
+    // From node_modules
+    implementation 'com.google.android.libraries.places:places:1.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
 }
 
 // Run this once to be able to run the application with BUCK

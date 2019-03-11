@@ -1,14 +1,14 @@
 import React from 'react'
 import AbstractComponent from "../../../base/componetAbstarct";
 import {Container , Fab , Icon} from 'native-base'
-import {Platform,Image , TouchableOpacity} from 'react-native'
+import {Platform, Image , TouchableOpacity , NativeModules} from 'react-native'
 import {connect} from "react-redux";
 import MapView, {PROVIDER_GOOGLE } from 'react-native-maps';
 import markerIcon from '../../../../media/Images/marker.png'
 import AddressSection from "../components/addressSections";
 import {scale, verticalScale} from "react-native-size-matters";
 import RNRestart from "react-native-restart";
-
+const NativeMethod = Platform.OS === 'ios' ? NativeModules.NativeMethod : NativeModules.NativeMethodModule;
 class Home extends AbstractComponent{
     constructor(props) {
         super(props);
@@ -19,6 +19,14 @@ class Home extends AbstractComponent{
     }
 
     componentDidMount(){
+        NativeMethod.getAutocompletePredictions('Nguyen Khuyen', {
+            type: 'address',
+            radius: 10
+        })
+            .then((place) => {
+                console.log(place);
+            })
+            .catch(error => console.log(error.message));
         this.setState({
             position: this.props.data.position,
             region: this.props.data.region
