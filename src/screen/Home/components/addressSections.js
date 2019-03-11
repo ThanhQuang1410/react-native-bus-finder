@@ -19,7 +19,7 @@ export default class AddressSection extends React.Component{
                     marginLeft: (this.deviceWidth - scale(340))/2,
                     height: verticalScale(150),
                     width: scale(340),
-                    borderRadius: 15,
+                    borderRadius: 25,
                     position: 'absolute',
                     bottom: 7,
                     backgroundColor: 'white',

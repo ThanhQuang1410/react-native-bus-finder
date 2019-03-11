@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -50,6 +51,8 @@
 		8476CCFE22342DBA00B1E9D9 /* libPods-busfinder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8476CCFD22342DBA00B1E9D9 /* libPods-busfinder.a */; };
 		84D65C232234327C00A457D2 /* AirMaps in Resources */ = {isa = PBXBuildFile; fileRef = 84D65C222234327B00A457D2 /* AirMaps */; };
 		84D65C252234328100A457D2 /* AirGoogleMaps in Resources */ = {isa = PBXBuildFile; fileRef = 84D65C242234328100A457D2 /* AirGoogleMaps */; };
+		97E67B85517E442080690733 /* libRCTRestart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA895D8B2154EE2BF7CA4DA /* libRCTRestart.a */; };
+		9B7908B090B64A36946C08B0 /* destination.png in Resources */ = {isa = PBXBuildFile; fileRef = C79F9C711B2D406586EF0732 /* destination.png */; };
 		9CBEEC2C6BDE4926A100E2F4 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 426DFC849084438296223EF5 /* MaterialCommunityIcons.ttf */; };
 		A380D5EF675B4FE8A29D9641 /* marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 67DC6E24B5904784A3A6429A /* marker.png */; };
 		A4DE01494414476EAA584EB3 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB780A364B3848038BA3B3C0 /* FontAwesome.ttf */; };
@@ -63,10 +66,8 @@
 		E968B813D0DD4C73B2DCB424 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFFF85107CCA42A2AF41C681 /* Ionicons.ttf */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
-		97E67B85517E442080690733 /* libRCTRestart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EA895D8B2154EE2BF7CA4DA /* libRCTRestart.a */; };
 		F5EF2EBEADD5499B946CFCFC /* current.png in Resources */ = {isa = PBXBuildFile; fileRef = DA04BC76401C44EE8CFB7D75 /* current.png */; };
 		FC6A9830DFBE4BDAB9C69ADC /* dashborder.png in Resources */ = {isa = PBXBuildFile; fileRef = D0154C43948B4FF484407593 /* dashborder.png */; };
-		9B7908B090B64A36946C08B0 /* destination.png in Resources */ = {isa = PBXBuildFile; fileRef = C79F9C711B2D406586EF0732 /* destination.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -357,6 +358,13 @@
 			remoteGlobalIDString = B5C32A36220C603B000FFB8D;
 			remoteInfo = "RNGestureHandler-tvOS";
 		};
+		84BB80FF22367A1500BCB100 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7C64286D790460987D946F3 /* RCTRestart.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3245CDED1BFEE35C00EABF68;
+			remoteInfo = RCTRestart;
+		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -403,6 +411,7 @@
 		43360E0961C14854800EB856 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		4650346AFEA64DBCAC802756 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		5EA895D8B2154EE2BF7CA4DA /* libRCTRestart.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTRestart.a; sourceTree = "<group>"; };
 		67DC6E24B5904784A3A6429A /* marker.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = marker.png; path = ../media/Images/marker.png; sourceTree = "<group>"; };
 		6D3C3AD5529CFA04D7883ECF /* Pods-busfinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-busfinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-busfinder/Pods-busfinder.release.xcconfig"; sourceTree = "<group>"; };
 		6D5439648AA24D678140DD42 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -414,12 +423,16 @@
 		84D65C242234328100A457D2 /* AirGoogleMaps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AirGoogleMaps; path = "../node_modules/react-native-maps/lib/ios/AirGoogleMaps"; sourceTree = "<group>"; };
 		9BC9C80DD3A147A6A9FDF281 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		A32CB6900FB512387178F417 /* Pods-busfinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-busfinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-busfinder/Pods-busfinder.debug.xcconfig"; sourceTree = "<group>"; };
+		A7C64286D790460987D946F3 /* RCTRestart.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTRestart.xcodeproj; path = "../node_modules/react-native-restart/ios/RCTRestart.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B91BDAD4366D4B80AD5CBDB9 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		C79F9C711B2D406586EF0732 /* destination.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = destination.png; path = ../media/Images/destination.png; sourceTree = "<group>"; };
 		CB533D9C403B4839967E5A89 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		CE47C76EC1724576A88B5CD4 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
+		D0154C43948B4FF484407593 /* dashborder.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = dashborder.png; path = ../media/Images/dashborder.png; sourceTree = "<group>"; };
 		D0D3B2AC6CA7435793E02A3F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		D9B3E1F69BF2499398F8F02B /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
+		DA04BC76401C44EE8CFB7D75 /* current.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = current.png; path = ../media/Images/current.png; sourceTree = "<group>"; };
 		DB780A364B3848038BA3B3C0 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		DD1EE085CA5242F8A3F6A522 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		EC628B70E66B46F4895AEB7E /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
@@ -427,11 +440,6 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F57C2F08EF3646A88B2747C4 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		FFFF85107CCA42A2AF41C681 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		A7C64286D790460987D946F3 /* RCTRestart.xcodeproj */ = {isa = PBXFileReference; name = "RCTRestart.xcodeproj"; path = "../node_modules/react-native-restart/ios/RCTRestart.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		5EA895D8B2154EE2BF7CA4DA /* libRCTRestart.a */ = {isa = PBXFileReference; name = "libRCTRestart.a"; path = "libRCTRestart.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		DA04BC76401C44EE8CFB7D75 /* current.png */ = {isa = PBXFileReference; name = "current.png"; path = "../media/Images/current.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D0154C43948B4FF484407593 /* dashborder.png */ = {isa = PBXFileReference; name = "dashborder.png"; path = "../media/Images/dashborder.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C79F9C711B2D406586EF0732 /* destination.png */ = {isa = PBXFileReference; name = "destination.png"; path = "../media/Images/destination.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -708,6 +716,7 @@
 				20D64601406F49679BE13869 /* libRNGestureHandler.a */,
 				D9B3E1F69BF2499398F8F02B /* libAirMaps.a */,
 				245766910AAD44489FD6F056 /* libRNGestureHandler-tvOS.a */,
+				5EA895D8B2154EE2BF7CA4DA /* libRCTRestart.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -725,6 +734,14 @@
 			isa = PBXGroup;
 			children = (
 				844A1A5F223416E500267448 /* libAirMaps.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		84BB80FC22367A1500BCB100 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				84BB810022367A1500BCB100 /* libRCTRestart.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -921,6 +938,10 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
+				},
+				{
+					ProductGroup = 84BB80FC22367A1500BCB100 /* Products */;
+					ProjectRef = A7C64286D790460987D946F3 /* RCTRestart.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -1231,6 +1252,13 @@
 			remoteRef = 844A1A64223416E500267448 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		84BB810022367A1500BCB100 /* libRCTRestart.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTRestart.a;
+			remoteRef = 84BB80FF22367A1500BCB100 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1448,7 +1476,7 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)..\node_modules\neact-native-mapslibios/**",
-					"$(SRCROOT)\..\node_modules\react-native-restart\ios\RCTRestart",
+					"$(SRCROOT)..\node_modules\neact-native-restartiosRCTRestart",
 				);
 				INFOPLIST_FILE = busfinderTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1479,7 +1507,7 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)..\node_modules\neact-native-mapslibios/**",
-					"$(SRCROOT)\..\node_modules\react-native-restart\ios\RCTRestart",
+					"$(SRCROOT)..\node_modules\neact-native-restartiosRCTRestart",
 				);
 				INFOPLIST_FILE = busfinderTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1513,7 +1541,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
-					"$(SRCROOT)\..\node_modules\react-native-restart\ios\RCTRestart",
+					"$(SRCROOT)..\node_modules\neact-native-restartiosRCTRestart",
 				);
 				INFOPLIST_FILE = busfinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1539,7 +1567,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/AirMaps/**",
-					"$(SRCROOT)\..\node_modules\react-native-restart\ios\RCTRestart",
+					"$(SRCROOT)..\node_modules\neact-native-restartiosRCTRestart",
 				);
 				INFOPLIST_FILE = busfinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1570,7 +1598,7 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)..\node_modules\neact-native-mapslibios/**",
-					"$(SRCROOT)\..\node_modules\react-native-restart\ios\RCTRestart",
+					"$(SRCROOT)..\node_modules\neact-native-restartiosRCTRestart",
 				);
 				INFOPLIST_FILE = "busfinder-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1609,7 +1637,7 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)..\node_modules\neact-native-mapslibios/**",
-					"$(SRCROOT)\..\node_modules\react-native-restart\ios\RCTRestart",
+					"$(SRCROOT)..\node_modules\neact-native-restartiosRCTRestart",
 				);
 				INFOPLIST_FILE = "busfinder-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1647,7 +1675,7 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)..\node_modules\neact-native-mapslibios/**",
-					"$(SRCROOT)\..\node_modules\react-native-restart\ios\RCTRestart",
+					"$(SRCROOT)..\node_modules\neact-native-restartiosRCTRestart",
 				);
 				INFOPLIST_FILE = "busfinder-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1685,7 +1713,7 @@
 					"$(inherited)",
 					"$(SRCROOT)..\node_modules\neact-native-gesture-handlerios/**",
 					"$(SRCROOT)..\node_modules\neact-native-mapslibios/**",
-					"$(SRCROOT)\..\node_modules\react-native-restart\ios\RCTRestart",
+					"$(SRCROOT)..\node_modules\neact-native-restartiosRCTRestart",
 				);
 				INFOPLIST_FILE = "busfinder-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

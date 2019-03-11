@@ -1,6 +1,7 @@
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {Icon} from 'native-base'
+import {scale, verticalScale} from "react-native-size-matters";
 
 export default class ThumbAction extends React.Component{
     constructor(props){
@@ -25,7 +26,7 @@ export default class ThumbAction extends React.Component{
                     shadowRadius: 2,
                     elevation: 5,
                     position: 'absolute',
-                    top: 13,
+                    top: verticalScale(35),
                     left: 13,
                     justifyContent: 'center',
                     alignItems: 'center'

@@ -56,7 +56,6 @@ class Home extends AbstractComponent{
                         longitudeDelta: 0.001,
                     }
                 }
-                this.map.animateToRegion(data.position, 3000)
                 this.props.storeData('current_location', data)
             },
             (error) => console.log(error),
