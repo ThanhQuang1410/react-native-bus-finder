@@ -43,7 +43,7 @@ export default class App extends React.Component {
                 store.dispatch({ type: 'current_location', data: data });
             },
             (error) => {console.log(error);RNRestart.Restart()},
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+            { enableHighAccuracy: false, timeout: 3600000, maximumAge: 1000 }
         )
     }
     render() {

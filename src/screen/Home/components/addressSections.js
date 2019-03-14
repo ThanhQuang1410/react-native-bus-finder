@@ -4,6 +4,7 @@ import {scale, verticalScale} from "react-native-size-matters";
 import {Text, View} from "native-base";
 import {Dimensions, Image, TouchableOpacity} from "react-native";
 import NavigationManager from "../../../helper/NavigationManager";
+import Identify from "../../../helper/Identify";
 
 export default class AddressSection extends React.Component{
     constructor(props) {
@@ -18,10 +19,10 @@ export default class AddressSection extends React.Component{
             long: this.parent.state.position.longitude,
             parent: this.parent
         }
-        if(this.parent.state.currentLocation){
+        if(this.parent.state.currentLocation !== null){
             params['currentPosition'] = this.parent.state.currentLocation
         }
-        if(this.parent.state.destinationPosition){
+        if(this.parent.state.destinationPosition !== null){
             params['destinationPosition'] = this.parent.state.destinationPosition
         }
         NavigationManager.openPage(this.props.navigation, 'InputAddress', params)
@@ -77,8 +78,8 @@ export default class AddressSection extends React.Component{
                             justifyContent: 'center',
                             paddingRight: 15
                         }}>
-                        <Text style={this.parent.state.currentLocation ? {fontSize: 14} : {fontWeight: '900',color: '#d8d8d8', fontSize: 18}}>
-                            {this.parent.state.currentLocation ? this.parent.state.currentLocation :   'Bạn đang ở đây'}
+                        <Text numberOfLines={1} style={this.parent.state.currentLocation ? {fontSize: 13} : {fontWeight: '500',color: '#d8d8d8', fontSize: 18}}>
+                            {this.parent.state.currentLocation !== null ? Identify.formatAddress(this.parent.state.currentLocation).mainAddress :   'Bạn đang ở đây'}
                             </Text>
                     </View>
                     <View
@@ -88,8 +89,8 @@ export default class AddressSection extends React.Component{
                             justifyContent: 'center',
                             paddingRight: 15
                         }}>
-                        <Text style={this.parent.state.destinationPosition ? {fontSize: 14} : {fontWeight: '900',color: '#d8d8d8', fontSize: 18}}>
-                            {this.parent.state.destinationPosition ? this.parent.state.destinationPosition : 'Nhập điểm đến'}
+                        <Text numberOfLines={1} style={this.parent.state.destinationPosition ? {fontSize: 13} : {fontWeight: '500',color: '#d8d8d8', fontSize: 18}}>
+                            {this.parent.state.destinationPosition !== null ? Identify.formatAddress(this.parent.state.destinationPosition).mainAddress : 'Nhập điểm đến'}
                         </Text>
                     </View>
                 </View>

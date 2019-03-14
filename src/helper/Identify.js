@@ -13,9 +13,9 @@ class Identify {
     }
 
     static formatAddress(place){
-        let address = place.description.split(',');
-        let mainAddress = address[0];
-        let otherAddress = address.slice(1, address.lenghts);
+        let address = place.split(',');
+        let mainAddress = address[0] + address[1];
+        let otherAddress = address.slice(2, address.lenghts);
         let description = otherAddress.join(',')
         return {
             mainAddress,

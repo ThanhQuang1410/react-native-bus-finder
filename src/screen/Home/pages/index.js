@@ -52,7 +52,7 @@ class Home extends AbstractComponent{
                 Connection.connect('geocode/json', this)
             },
             (error) => console.log(error),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 10000 }
+            { enableHighAccuracy: false, timeout: 3600000, maximumAge: 10000 }
         )
     }
     setData(data){

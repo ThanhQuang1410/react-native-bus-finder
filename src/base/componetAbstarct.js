@@ -15,14 +15,6 @@ export default class AbstractComponent extends React.Component {
                     androidStatusBarColor="rgba(0,0,0,0.251)"
                     transparent
                     noShadow
-                    style={{
-                        top: 0,
-                        position: 'absolute',
-                        paddingBottom: 10,
-                        backgroundColor: "transparent",
-                        elevation:0,
-                        zIndex: 10000
-                    }}
                 >
                     <Left>
                         <ThumbAction navigation={this.props.navigation}/>

@@ -1,6 +1,6 @@
 import React from 'react'
 import AbstractComponent from "../../../base/componetAbstarct";
-import { Container , Text , Content , View , Textarea , Icon} from 'native-base'
+import { Container , Text , Content , View , Input , Item} from 'native-base'
 import { Image , TouchableOpacity } from 'react-native';
 import {scale, verticalScale} from "react-native-size-matters";
 import Connection from "../../../helper/Connection";
@@ -43,52 +43,54 @@ export default class InputAddress extends AbstractComponent{
         return(
             <View
                 style={{
-                    marginTop: 60,
                     backgroundColor: 'white',
                     flexDirection: 'row',
-                    padding: 30
+                    paddingBottom: 10,
+                    paddingLeft: 30,
+                    paddingRight: 30,
                 }}
             >
                 {this.renderMarker()}
                 <View
                     style={{
                         flexGrow: 1,
-                        marginLeft: 15
+                        marginLeft: 15,
+                        flexDirection: 'column'
                     }}
                 >
-                    <View
-                        style={{
-                            flexGrow: 1,
-                            width: '100%',
-                            borderBottomWidth: 1,
-                            borderBottomColor: '#f1f1f1',
-                            justifyContent: 'center'
-                        }}>
-                        <Textarea
+                    <Item>
+                        <Input
+                            autoFocus
+                            numberOfLines={1}
                             returnKeyType={'done'}
                             clearTextOnFocus
-                            rowSpan={2}
                             defaultValue={this.state.placeNow}
                             placeholder={'Nhập điểm '}
+                            style={{
+                                fontSize: 13,
+                                fontWeight: '500'
+                            }}
                             onChangeText={text => {
                                 this.setState({placeNow: text, isInputPlace: true, isInputDestination: false})
                                 this.requestAutoFill(text)
                             }}
                         />
-                    </View>
-                    <View
+                    </Item>
+                    <Item
                         style={{
-                            flexGrow: 1,
-                            width: '100%',
-                            justifyContent: 'center'
-                        }}>
-                        <Textarea
+                            borderColor: 'transparent'
+                        }}
+                    >
+                        <Input
+                            autoFocus
+                            numberOfLines={1}
                             returnKeyType={'done'}
                             clearTextOnFocus
                             style={{
-                                marginTop: 15
+                                marginTop: 15,
+                                fontSize: 13,
+                                fontWeight: '500'
                             }}
-                            rowSpan={2}
                             defaultValue={this.state.destinationWantToGet}
                             placeholder={'Nhập điểm đến'}
                             onChangeText={text => {
@@ -96,7 +98,7 @@ export default class InputAddress extends AbstractComponent{
                                 this.requestAutoFill(text)
                             }}
                         />
-                    </View>
+                    </Item>
                 </View>
             </View>
         )
@@ -121,7 +123,7 @@ export default class InputAddress extends AbstractComponent{
         if(this.state.resultAutoFill){
             let list = []
             this.state.resultAutoFill.forEach(place => {
-                let address = Identify.formatAddress(place)
+                let address = Identify.formatAddress(place.description)
                 list.push(
                     <TouchableOpacity
                         onPress={() => {
@@ -143,8 +145,8 @@ export default class InputAddress extends AbstractComponent{
                             backgroundColor: 'white'
                         }}
                     >
-                        <Text style={{fontWeight: '500'}}>{address.mainAddress}</Text>
-                        <Text style={{fontSize: 13, color: '#828282', marginTop: 10}}>{address.description}</Text>
+                        <Text style={{fontWeight: '500', fontSize: 13}}>{address.mainAddress}</Text>
+                        <Text style={{fontSize: 11, color: '#828282', marginTop: 10}}>{address.description}</Text>
                     </TouchableOpacity>
                 )
             })
@@ -161,17 +163,14 @@ export default class InputAddress extends AbstractComponent{
     createLayout(){
         return(
             <Container
-                style={{
-                    backgroundColor: 'white',
-                    height: 150
-                }}
+                scrollEnabled={false}
             >
+                {this.renderInputSec()}
                 <Content
                     style={{
                         flex: 1
                     }}
                 >
-                    {this.renderInputSec()}
                     {this.renderResultAutoFill()}
                 </Content>
             </Container>
