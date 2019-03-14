@@ -7,22 +7,21 @@ import MapView, {PROVIDER_GOOGLE } from 'react-native-maps';
 import markerIcon from '../../../../media/Images/marker.png'
 import AddressSection from "../components/addressSections";
 import {scale, verticalScale} from "react-native-size-matters";
-import RNRestart from "react-native-restart";
+import Connection from "../../../helper/Connection";
 
 class Home extends AbstractComponent{
     constructor(props) {
         super(props);
         this.state = {
             position: undefined,
-            region: undefined
+            region: undefined,
+            currentLocation: null,
+            destinationPosition: null
         }
     }
 
     componentDidMount(){
-        this.setState({
-            position: this.props.data.position,
-            region: this.props.data.region
-        })
+        this.getCurrentLocation()
     }
 
     componentWillUnmount() {
@@ -44,25 +43,38 @@ class Home extends AbstractComponent{
         navigator.geolocation.getCurrentPosition(
             ({ coords }) => {
                 const { latitude, longitude } = coords;
-                let data = {
-                    position: {
-                        latitude,
-                        longitude,
-                    },
-                    region: {
-                        latitude,
-                        longitude,
-                        latitudeDelta: 0.005,
-                        longitudeDelta: 0.001,
-                    }
-                }
-                this.props.storeData('current_location', data)
+
+                this.handleLocation(coords)
+                console.log(latitude, longitude)
+                Connection.setGetData({
+                    latlng: latitude.toString() + ',' + longitude.toString()
+                }, true)
+                Connection.connect('geocode/json', this)
             },
             (error) => console.log(error),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 10000 }
         )
     }
-
+    setData(data){
+        this.setState({
+            currentLocation : data.results[0].formatted_address
+        })
+    }
+    handleLocation(coords){
+        const { latitude, longitude } = coords;
+        this.setState({
+            position: {
+                latitude,
+                longitude,
+            },
+            region: {
+                latitude,
+                longitude,
+                latitudeDelta: 0.005,
+                longitudeDelta: 0.001,
+            }
+        })
+    }
     renderFabCurrent(){
         return (
             <TouchableOpacity
@@ -80,7 +92,7 @@ class Home extends AbstractComponent{
                     borderRadius: 55/2,
                     shadowColor: '#000',
                     shadowOffset: { width: 0, height: 5 },
-                    shadowOpacity: 0.8,
+                    shadowOpacity: 0.4,
                     shadowRadius: 2,
                     elevation: 5,
                     justifyContent: 'center',
@@ -108,18 +120,15 @@ class Home extends AbstractComponent{
                 >
                     {this.state.position && <MapView.Marker
                         coordinate={this.state.position}
-                        image={Platform.OS === 'android' ? markerIcon : undefined}
                         {...this.addPropsTomarker()}
                     >
-                        {Platform.OS === 'ios'
-                            ? <Image
-                                source={markerIcon}
-                                style={{
-                                    width: 40,
-                                    height: 63,
-                                }}
-                            />
-                            : null}
+                        <Image
+                            source={markerIcon}
+                            style={{
+                                width: 40,
+                                height: 63,
+                            }}
+                        />
                     </MapView.Marker>}
                 </MapView.Animated>
                 <AddressSection navigation={this.props.navigation} parent={this}/>

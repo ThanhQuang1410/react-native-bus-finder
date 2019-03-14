@@ -3,17 +3,35 @@ import AbstractComponent from "../../../base/componetAbstarct";
 import {scale, verticalScale} from "react-native-size-matters";
 import {Text, View} from "native-base";
 import {Dimensions, Image, TouchableOpacity} from "react-native";
+import NavigationManager from "../../../helper/NavigationManager";
 
 export default class AddressSection extends React.Component{
     constructor(props) {
         super(props);
         this.deviceWidth = Dimensions.get('window').width
         this.destination = this.props.navigation.getParam('destination')
+        this.parent = this.props.parent
     }
-
+    handleSectionPress(){
+        let params = {
+            lat: this.parent.state.position.latitude,
+            long: this.parent.state.position.longitude,
+            parent: this.parent
+        }
+        if(this.parent.state.currentLocation){
+            params['currentPosition'] = this.parent.state.currentLocation
+        }
+        if(this.parent.state.destinationPosition){
+            params['destinationPosition'] = this.parent.state.destinationPosition
+        }
+        NavigationManager.openPage(this.props.navigation, 'InputAddress', params)
+    }
     render(){
         return(
             <TouchableOpacity
+                onPress={() => {
+                    this.handleSectionPress()
+                }}
                 activeOpacity={0.92}
                 style={{
                     marginLeft: (this.deviceWidth - scale(340))/2,
@@ -57,17 +75,21 @@ export default class AddressSection extends React.Component{
                             borderBottomWidth: 1,
                             borderBottomColor: '#f1f1f1',
                             justifyContent: 'center',
+                            paddingRight: 15
                         }}>
-                        <Text style={{fontSize: 14}}>Bạn đang ở đây</Text>
+                        <Text style={this.parent.state.currentLocation ? {fontSize: 14} : {fontWeight: '900',color: '#d8d8d8', fontSize: 18}}>
+                            {this.parent.state.currentLocation ? this.parent.state.currentLocation :   'Bạn đang ở đây'}
+                            </Text>
                     </View>
                     <View
                         style={{
                             flexGrow: 1,
                             width: '100%',
                             justifyContent: 'center',
+                            paddingRight: 15
                         }}>
-                        <Text style={this.destination ? {fontSize: 14} : {fontWeight: '900',color: '#d8d8d8', fontSize: 18}}>
-                            {this.destination ? this.destination : 'Nhập điểm đến'}
+                        <Text style={this.parent.state.destinationPosition ? {fontSize: 14} : {fontWeight: '900',color: '#d8d8d8', fontSize: 18}}>
+                            {this.parent.state.destinationPosition ? this.parent.state.destinationPosition : 'Nhập điểm đến'}
                         </Text>
                     </View>
                 </View>

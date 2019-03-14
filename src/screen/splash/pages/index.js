@@ -26,7 +26,6 @@ class Splash extends ComponectAbstract{
                         resizeMode={'contain'}
                         style={{ width: 200 , height: 200}}
                         source={require("../../../../media/Images/personal_logo.png")}/>
-                    <Spinner color={'#'}/>
                 </Container>
             )
         }else {

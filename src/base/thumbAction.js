@@ -8,7 +8,11 @@ export default class ThumbAction extends React.Component{
         super(props)
     }
     handleThumb(){
-        this.props.navigation.openDrawer();
+        if(this.props.navigation.state.routeName === 'Home'){
+            this.props.navigation.openDrawer();
+        }else {
+            this.props.navigation.goBack(null)
+        }
     }
     render(){
         return (
@@ -16,23 +20,12 @@ export default class ThumbAction extends React.Component{
                 onPress={() => {this.handleThumb()}}
                 activeOpacity={0.8}
                 style={{
-                    width: 45,
-                    height: 45,
-                    borderRadius: 35,
-                    backgroundColor: 'white',
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 5 },
-                    shadowOpacity: 0.8,
-                    shadowRadius: 2,
-                    elevation: 5,
-                    position: 'absolute',
-                    top: verticalScale(35),
-                    left: 13,
+                    marginLeft: 25,
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}
             >
-                <Icon style={{color: "#646464", fontSize: 20}} name={'menu'}/>
+                <Icon style={{color: "#646464", fontSize: 28}} name={this.props.navigation.state.routeName === 'Home' ? 'menu' : 'ios-arrow-back' }/>
             </TouchableOpacity>
         )
     }
