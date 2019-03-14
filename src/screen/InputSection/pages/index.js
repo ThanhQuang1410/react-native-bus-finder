@@ -10,14 +10,14 @@ import NavigationManager from "../../../helper/NavigationManager";
 export default class InputAddress extends AbstractComponent{
     constructor(props){
         super(props)
-        this.currentPosition = this.props.navigation.getParam('currentPosition');
-        this.destinationPosition = this.props.navigation.getParam('destinationPosition');
+        this.currentPosition = this.props.navigation.getParam('currentPosition') ? this.props.navigation.getParam('currentPosition') : '';
+        this.destinationPosition = this.props.navigation.getParam('destinationPosition') ? this.props.navigation.getParam('destinationPosition') : '';
         this.lat = this.props.navigation.getParam('lat');
         this.long = this.props.navigation.getParam('long');
         this.parent = this.props.navigation.getParam('parent');
         this.state = {
-            placeNow: this.currentPosition,
-            destinationWantToGet: this.destinationPosition,
+            currentLocation: this.currentPosition,
+            destinationPosition: this.destinationPosition,
             isInputPlace: false,
             isInputDestination: false,
             resultAutoFill: null
@@ -60,18 +60,17 @@ export default class InputAddress extends AbstractComponent{
                 >
                     <Item>
                         <Input
-                            autoFocus
                             numberOfLines={1}
                             returnKeyType={'done'}
-                            clearTextOnFocus
-                            defaultValue={this.state.placeNow}
+                            defaultValue={this.state.currentLocation}
+                            value={this.state.currentLocation}
                             placeholder={'Nhập điểm '}
                             style={{
                                 fontSize: 13,
                                 fontWeight: '500'
                             }}
                             onChangeText={text => {
-                                this.setState({placeNow: text, isInputPlace: true, isInputDestination: false})
+                                this.setState({currentLocation: text, isInputPlace: true, isInputDestination: false})
                                 this.requestAutoFill(text)
                             }}
                         />
@@ -82,19 +81,18 @@ export default class InputAddress extends AbstractComponent{
                         }}
                     >
                         <Input
-                            autoFocus
                             numberOfLines={1}
                             returnKeyType={'done'}
-                            clearTextOnFocus
                             style={{
                                 marginTop: 15,
                                 fontSize: 13,
                                 fontWeight: '500'
                             }}
-                            defaultValue={this.state.destinationWantToGet}
+                            defaultValue={this.state.destinationPosition}
+                            value={this.state.destinationPosition}
                             placeholder={'Nhập điểm đến'}
                             onChangeText={text => {
-                                this.setState({destinationWantToGet: text , isInputPlace: false, isInputDestination: true})
+                                this.setState({destinationPosition: text , isInputPlace: false, isInputDestination: true})
                                 this.requestAutoFill(text)
                             }}
                         />
@@ -127,14 +125,26 @@ export default class InputAddress extends AbstractComponent{
                 list.push(
                     <TouchableOpacity
                         onPress={() => {
-                            let key = 'placeNow';
+                            let key = 'currentLocation';
                             if(this.state.isInputDestination){
-                                key = 'destinationWantToGet'
+                                key = 'destinationPosition'
                             }
-                            this.state[key] = place.description
-                            if(this.state.placeNow !== '' && this.state.destinationWantToGet !== ''){
+                            this.setState({
+                                [key] : place.description
+                            })
+                            if(this.state.currentLocation !== '' && this.state.destinationPosition !== ''){
+                                if(key === 'currentLocation'){
+                                    this.parent.setState({
+                                        [key] : this.state[key],
+                                        currentLocation: place.description
+                                    })
+                                }else {
+                                    this.parent.setState({
+                                        [key] : this.state[key],
+                                        destinationPosition: place.description
+                                    })
+                                }
                                 NavigationManager.backToPreviousPage(this.props.navigation)
-                                this.parent.setState({currentLocation: this.state.placeNow, destinationPosition: this.state.destinationWantToGet})
                             }
                         }}
                         key={Identify.makeid()}
