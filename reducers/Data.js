@@ -1,5 +1,9 @@
 const initialState = {
-    current_location : null
+    isUserUseCurrentPosition: true,
+    current_location: {},
+    place_location: {},
+    destination_location: {},
+    location_map: {}
 }
 export function redux_data(state = initialState, action) {
     if (action.type === 'actions') {
@@ -13,9 +17,19 @@ export function redux_data(state = initialState, action) {
     }
 }
 function processSingleAction(state, action) {
+    let location_map = state.location_map;
     switch (action.type) {
         case 'current_location':
-            return { ...state, ...{ 'current_location': action.data } };
+            location_map['current_location'] = action.data;
+            return { ...state, ...{ 'current_location': action.data }, location_map };
+        case 'isUserUseCurrentPosition':
+            return { ...state, ...{ 'isUserUseCurrentPosition': action.data } };
+        case 'place_location':
+            location_map['place_location'] = action.data;
+            return { ...state, ...{ 'place_location': action.data }, location_map };
+        case 'destination_location':
+            location_map['destination_location'] = action.data;
+            return { ...state, ...{ 'destination_location': action.data }, location_map };
         default:
             let customData = {};
             customData[action.type] = action.data;

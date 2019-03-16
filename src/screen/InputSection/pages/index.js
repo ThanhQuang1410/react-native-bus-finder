@@ -6,23 +6,19 @@ import {scale, verticalScale} from "react-native-size-matters";
 import Connection from "../../../helper/Connection";
 import Identify from "../../../helper/Identify";
 import NavigationManager from "../../../helper/NavigationManager";
+import {connect} from "react-redux";
 
-export default class InputAddress extends AbstractComponent{
+class InputAddress extends AbstractComponent{
     constructor(props){
         super(props)
         this.currentLocation = this.props.navigation.getParam('currentLocation') ? this.props.navigation.getParam('currentLocation') : '';
         this.destinationLocation = this.props.navigation.getParam('destinationLocation') ? this.props.navigation.getParam('destinationLocation') : '';
-        this.lat = this.props.navigation.getParam('lat');
-        this.long = this.props.navigation.getParam('long');
-        this.parent = this.props.navigation.getParam('parent');
+        this.parent = this.props.navigation.getParam('parent')
         this.state = {
             currentLocation: this.currentLocation,
-            currentLocationLatLong: undefined,
-            destinationPosition: this.destinationLocation,
-            destinationPositionLatLong: undefined,
+            destinationLocation: this.destinationLocation,
             isInputPlace: false,
             isInputDestination: false,
-            isUserChangeCurrentLocation: false,
             resultAutoFill: null,
 
         }
@@ -75,11 +71,11 @@ export default class InputAddress extends AbstractComponent{
                                 fontWeight: '500'
                             }}
                             onChangeText={text => {
+                                this.props.storeData('isUserUseCurrentPosition', false);
+                                this.state.currentLocation = text;
                                 this.setState({
-                                    currentLocation: text,
                                     isInputPlace: true,
-                                    isInputDestination: false,
-                                    isUserChangeCurrentLocation: true
+                                    isInputDestination: false
                                 });
                                 this.requestAutoFill(text)
                             }}
@@ -91,7 +87,7 @@ export default class InputAddress extends AbstractComponent{
                         }}
                     >
                         <Input
-                            onFocus= {() => this.setState({destinationPosition : ''})}
+                            onFocus= {() => this.setState({destinationLocation : ''})}
                             numberOfLines={1}
                             returnKeyType={'done'}
                             style={{
@@ -99,15 +95,15 @@ export default class InputAddress extends AbstractComponent{
                                 fontSize: 13,
                                 fontWeight: '500'
                             }}
-                            defaultValue={this.state.destinationPosition}
-                            value={this.state.destinationPosition}
+                            defaultValue={this.state.destinationLocation}
+                            value={this.state.destinationLocation}
                             placeholder={'Nhập điểm đến'}
                             onChangeText={text => {
+                                this.state.destinationLocation = text
                                 this.setState({
-                                    destinationPosition: text ,
                                     isInputPlace: false,
                                     isInputDestination: true
-                                })
+                                });
                                 this.requestAutoFill(text)
                             }}
                         />
@@ -124,7 +120,7 @@ export default class InputAddress extends AbstractComponent{
             sessiontoken: token,
             types: 'address',
             radius : 5000,
-            location: this.lat + ',' + this.long
+            location: this.props.current_location.position.latitude + ',' + this.props.current_location.position.longitude
         })
         Connection.connect('place/queryautocomplete/json', this)
     }
@@ -141,52 +137,30 @@ export default class InputAddress extends AbstractComponent{
                 resultAutoFill: data.predictions
             })
         }else {
-            if(!this.state.isUserChangeCurrentLocation){
-                this.setState({
-                    currentLocationLatLong: {
-                        lat: this.lat,
-                        lng: this.long
-                    }
-                })
-                this.parent.setState({
-                    currentLocationLatLong: {
-                        lat: this.lat,
-                        lng: this.long
-                    }
-                })
-            }
+            let latitude = data.result.geometry.location.lat;
+            let longitude = data.result.geometry.location.lng;
+            let dataToStore = {
+                position: {
+                    latitude,
+                    longitude,
+                },
+                region: {
+                    latitude,
+                    longitude,
+                    latitudeDelta: 0.005,
+                    longitudeDelta: 0.001,
+                }
+            };
             if(this.state.isInputDestination){
-                this.setState({
-                    destinationPositionLatLong: {
-                        latitude: data.result.geometry.location.lat,
-                        longitude: data.result.geometry.location.lng
-                    }
-                })
-                this.parent.setState({
-                    destinationPositionLatLong: {
-                        latitude: data.result.geometry.location.lat,
-                        longitude: data.result.geometry.location.lng
-                    }
-                })
+                this.props.storeData('destination_location', dataToStore)
             }
             if(this.state.isInputPlace){
-                this.setState({
-                    currentLocationLatLong: {
-                        latitude: data.result.geometry.location.lat,
-                        longitude: data.result.geometry.location.lng
-                    }
-                })
-                this.parent.setState({
-                    currentLocationLatLong: {
-                        latitude: data.result.geometry.location.lat,
-                        longitude: data.result.geometry.location.lng
-                    }
-                })
+                this.props.storeData('place_location', dataToStore)
             }
-            if(this.state.currentLocation !== '' && this.state.destinationPosition !== ''){
+            if(this.state.currentLocation !== '' && this.state.destinationLocation !== ''){
                 this.parent.setState({
                     currentLocation: this.state.currentLocation,
-                    destinationLocation: this.state.destinationPosition
+                    destinationLocation: this.state.destinationLocation
                 });
                 NavigationManager.backToPreviousPage(this.props.navigation)
                 this.parent.fitToMarker()
@@ -203,7 +177,7 @@ export default class InputAddress extends AbstractComponent{
                         onPress={() => {
                             let key = 'currentLocation';
                             if(this.state.isInputDestination){
-                                key = 'destinationPosition'
+                                key = 'destinationLocation'
                             }
                             this.setState({
                                 [key] : place.description
@@ -250,3 +224,20 @@ export default class InputAddress extends AbstractComponent{
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        current_location: state.redux_data.current_location ,
+        isUserUseCurrentPosition: state.redux_data.isUserUseCurrentPosition,
+        place_location: state.redux_data.place_location,
+        destination_location: state.redux_data.destination_location
+    };
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        storeData: (type, data) => {
+            dispatch({ type: type, data: data })
+        }
+    };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(InputAddress);

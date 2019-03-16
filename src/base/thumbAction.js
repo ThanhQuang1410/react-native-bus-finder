@@ -20,12 +20,13 @@ export default class ThumbAction extends React.Component{
                 onPress={() => {this.handleThumb()}}
                 activeOpacity={0.8}
                 style={{
-                    marginLeft: 25,
+                    width: 50,
+                    height: 50,
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}
             >
-                <Icon style={{color: "#646464", fontSize: 28}} name={this.props.navigation.state.routeName === 'Home' ? 'menu' : 'ios-arrow-back' }/>
+                <Icon style={{color: "#20bf6b", fontSize: 28}} name={this.props.navigation.state.routeName === 'Home' ? 'menu' : 'ios-arrow-back' }/>
             </TouchableOpacity>
         )
     }
