@@ -5,6 +5,7 @@ import {Platform,Image , TouchableOpacity} from 'react-native'
 import {connect} from "react-redux";
 import MapView, {PROVIDER_GOOGLE } from 'react-native-maps';
 import markerIcon from '../../../../media/Images/marker.png'
+import busMarker from '../../../../media/Images/bus.png';
 import AddressSection from "../components/addressSections";
 import {scale, verticalScale} from "react-native-size-matters";
 import Connection from "../../../helper/Connection";
@@ -14,13 +15,9 @@ class Home extends AbstractComponent{
     constructor(props) {
         super(props);
         this.state = {
-            userPosition: undefined,
-            userRegion: undefined,
             currentLocation: null,
             destinationLocation: null,
-            destinationPositionLatLong: undefined,
-            currentPositionLatLong: undefined,
-        }
+        };
         this.mapRef = null;
     }
 
@@ -56,27 +53,21 @@ class Home extends AbstractComponent{
     }
     handleLocation(coords){
         const { latitude, longitude } = coords;
-        this.setState({
-            userPosition: {
+        let data = {
+            position: {
                 latitude,
                 longitude,
             },
-            userRegion: {
+            region: {
                 latitude,
                 longitude,
                 latitudeDelta: 0.005,
                 longitudeDelta: 0.001,
             }
-        })
+        }
+        this.props.storeData('current_location', data);
     }
     fitToMarker(){
-        // this.mapRef._component.fitToCoordinates(
-        //     [
-        //         {...this.state.destinationPositionLatLong},
-        //         {...this.state.currentPositionLatLong}
-        //     ],
-        //     { animated: true }
-        // );
         this.mapRef.getNode().fitToElements(true);
     }
     renderFabCurrent(){
@@ -109,6 +100,17 @@ class Home extends AbstractComponent{
     }
 
     createLayout(){
+        let listMarker = [];
+        Object.keys(this.props.location_map).forEach(keys => {
+            let marker = this.props.location_map[keys];
+            let imgSource = busMarker;
+            if(keys === 'current_location'){
+                imgSource = markerIcon
+            }
+            if(marker.position.latitude && marker.position.longitude){
+                listMarker.push(<MarkerComponent key={keys} position={marker.position} imageSource={imgSource}/>)
+            }
+        });
         return(
             <Container>
                 <MapView.Animated
@@ -120,11 +122,9 @@ class Home extends AbstractComponent{
                     showsUserLocation={true}
                     followUserLocation={true}
                     showsMyLocationButton={false}
-                    region={this.state.userRegion}
+                    region={this.props.current_location.region}
                 >
-                    {this.state.userPosition && <MarkerComponent position={this.state.userPosition} imageSource={markerIcon}/>}
-                    {this.state.currentPositionLatLong && <MarkerComponent position={this.state.currentPositionLatLong} imageSource={markerIcon}/>}
-                    {this.state.destinationPositionLatLong && <MarkerComponent position={this.state.destinationPositionLatLong} imageSource={markerIcon}/>}
+                    {listMarker}
                 </MapView.Animated>
                 <AddressSection navigation={this.props.navigation} parent={this}/>
                 {this.renderFabCurrent()}
@@ -134,7 +134,13 @@ class Home extends AbstractComponent{
 }
 
 const mapStateToProps = (state) => {
-    return { data: state.redux_data.current_location };
+    return {
+        location_map: state.redux_data.location_map ,
+        current_location: state.redux_data.current_location ,
+        place_location: state.redux_data.place_location ,
+        destination_location: state.redux_data.destination_location ,
+        isUserUseCurrentPosition: state.redux_data.isUserUseCurrentPosition
+    };
 }
 const mapDispatchToProps = (dispatch) => {
     return {

@@ -15,10 +15,8 @@ export default class AddressSection extends React.Component{
     }
     handleSectionPress(){
         let params = {
-            lat: this.parent.state.userPosition.latitude,
-            long: this.parent.state.userPosition.longitude,
-            parent: this.parent
-        }
+            parent : this.props.parent
+        };
         if(this.parent.state.currentLocation !== null){
             params['currentLocation'] = this.parent.state.currentLocation
         }
