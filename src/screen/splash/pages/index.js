@@ -29,8 +29,7 @@ class Splash extends ComponectAbstract{
                 </Container>
             )
         }else {
-            NavigationManager.openRootPage(this.props.navigation, 'Home')
-            return null
+            return  <Redirect navigation={this.props.navigation}/>
         }
 
     }

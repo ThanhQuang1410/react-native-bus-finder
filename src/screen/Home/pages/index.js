@@ -8,16 +8,20 @@ import markerIcon from '../../../../media/Images/marker.png'
 import AddressSection from "../components/addressSections";
 import {scale, verticalScale} from "react-native-size-matters";
 import Connection from "../../../helper/Connection";
+import MarkerComponent from "../components/marker";
 
 class Home extends AbstractComponent{
     constructor(props) {
         super(props);
         this.state = {
-            position: undefined,
-            region: undefined,
+            userPosition: undefined,
+            userRegion: undefined,
             currentLocation: null,
-            destinationPosition: null
+            destinationLocation: null,
+            destinationPositionLatLong: undefined,
+            currentPositionLatLong: undefined,
         }
+        this.mapRef = null;
     }
 
     componentDidMount(){
@@ -26,17 +30,6 @@ class Home extends AbstractComponent{
 
     componentWillUnmount() {
         navigator.geolocation.clearWatch(this.watchID);
-    }
-
-    addPropsTomarker(){
-        if(Platform.OS === 'ios'){
-            return {
-                centerOffset : {
-                    x: 0,
-                    y: -35
-                }
-            }
-        }
     }
 
     getCurrentLocation(){
@@ -48,13 +41,14 @@ class Home extends AbstractComponent{
                 console.log(latitude, longitude)
                 Connection.setGetData({
                     latlng: latitude.toString() + ',' + longitude.toString()
-                }, true)
+                })
                 Connection.connect('geocode/json', this)
             },
             (error) => console.log(error),
             { enableHighAccuracy: false, timeout: 3600000, maximumAge: 10000 }
         )
     }
+
     setData(data){
         this.setState({
             currentLocation : data.results[0].formatted_address
@@ -63,17 +57,27 @@ class Home extends AbstractComponent{
     handleLocation(coords){
         const { latitude, longitude } = coords;
         this.setState({
-            position: {
+            userPosition: {
                 latitude,
                 longitude,
             },
-            region: {
+            userRegion: {
                 latitude,
                 longitude,
                 latitudeDelta: 0.005,
                 longitudeDelta: 0.001,
             }
         })
+    }
+    fitToMarker(){
+        // this.mapRef._component.fitToCoordinates(
+        //     [
+        //         {...this.state.destinationPositionLatLong},
+        //         {...this.state.currentPositionLatLong}
+        //     ],
+        //     { animated: true }
+        // );
+        this.mapRef.getNode().fitToElements(true);
     }
     renderFabCurrent(){
         return (
@@ -108,7 +112,7 @@ class Home extends AbstractComponent{
         return(
             <Container>
                 <MapView.Animated
-                    ref={ref => this.map = ref}
+                    ref={(ref) => { this.mapRef = ref }}
                     provider={PROVIDER_GOOGLE}
                     style={{ flex: 1 }}
                     scrollEnabled={true}
@@ -116,20 +120,11 @@ class Home extends AbstractComponent{
                     showsUserLocation={true}
                     followUserLocation={true}
                     showsMyLocationButton={false}
-                    region={this.state.region}
+                    region={this.state.userRegion}
                 >
-                    {this.state.position && <MapView.Marker
-                        coordinate={this.state.position}
-                        {...this.addPropsTomarker()}
-                    >
-                        <Image
-                            source={markerIcon}
-                            style={{
-                                width: 40,
-                                height: 63,
-                            }}
-                        />
-                    </MapView.Marker>}
+                    {this.state.userPosition && <MarkerComponent position={this.state.userPosition} imageSource={markerIcon}/>}
+                    {this.state.currentPositionLatLong && <MarkerComponent position={this.state.currentPositionLatLong} imageSource={markerIcon}/>}
+                    {this.state.destinationPositionLatLong && <MarkerComponent position={this.state.destinationPositionLatLong} imageSource={markerIcon}/>}
                 </MapView.Animated>
                 <AddressSection navigation={this.props.navigation} parent={this}/>
                 {this.renderFabCurrent()}

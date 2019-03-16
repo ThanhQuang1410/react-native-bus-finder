@@ -15,15 +15,15 @@ export default class AddressSection extends React.Component{
     }
     handleSectionPress(){
         let params = {
-            lat: this.parent.state.position.latitude,
-            long: this.parent.state.position.longitude,
+            lat: this.parent.state.userPosition.latitude,
+            long: this.parent.state.userPosition.longitude,
             parent: this.parent
         }
         if(this.parent.state.currentLocation !== null){
-            params['currentPosition'] = this.parent.state.currentLocation
+            params['currentLocation'] = this.parent.state.currentLocation
         }
-        if(this.parent.state.destinationPosition !== null){
-            params['destinationPosition'] = this.parent.state.destinationPosition
+        if(this.parent.state.destinationLocation !== null){
+            params['destinationLocation'] = this.parent.state.destinationLocation
         }
         NavigationManager.openPage(this.props.navigation, 'InputAddress', params)
     }
@@ -89,8 +89,8 @@ export default class AddressSection extends React.Component{
                             justifyContent: 'center',
                             paddingRight: 15
                         }}>
-                        <Text numberOfLines={1} style={this.parent.state.destinationPosition ? {fontSize: 13} : {fontWeight: '500',color: '#d8d8d8', fontSize: 18}}>
-                            {this.parent.state.destinationPosition !== null ? Identify.formatAddress(this.parent.state.destinationPosition).mainAddress : 'Nhập điểm đến'}
+                        <Text numberOfLines={1} style={this.parent.state.destinationLocation ? {fontSize: 13} : {fontWeight: '500',color: '#d8d8d8', fontSize: 18}}>
+                            {this.parent.state.destinationLocation !== null ? Identify.formatAddress(this.parent.state.destinationLocation).mainAddress : 'Nhập điểm đến'}
                         </Text>
                     </View>
                 </View>

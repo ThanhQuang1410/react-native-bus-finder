@@ -11,7 +11,7 @@ export default class AbstractComponent extends React.Component {
         return (
             <Container >
                 <Header
-                    iosBarStyle={"light-content"}
+                    iosBarStyle={"dark-content"}
                     androidStatusBarColor="rgba(0,0,0,0.251)"
                     transparent
                     noShadow

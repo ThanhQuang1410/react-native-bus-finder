@@ -7,7 +7,11 @@ class Connection {
         this._dataGet = null;
         this._init = { credentials: 'include' };
     }
-    setGetData(data, noEncode = false) {
+    restData() {
+        this._dataGet = null;
+        this._init['body'] = null;
+    }
+    setGetData(data) {
         this._dataGet = Object.keys(data).map(function (key) {
             return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
         }).join('&');
