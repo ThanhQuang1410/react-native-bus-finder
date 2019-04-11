@@ -33,18 +33,11 @@ export default class AddressSection extends React.Component{
                 }}
                 activeOpacity={0.92}
                 style={{
-                    marginLeft: (this.deviceWidth - scale(340))/2,
                     height: verticalScale(150),
-                    width: scale(340),
-                    borderRadius: 25,
+                    width: '100%',
                     position: 'absolute',
-                    bottom: 7,
+                    bottom: 0,
                     backgroundColor: 'white',
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 5 },
-                    shadowOpacity: 0.8,
-                    shadowRadius: 2,
-                    elevation: 5,
                     flexDirection: 'row',
                     padding: 15
                 }}
