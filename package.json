@@ -9,6 +9,7 @@
     "test": "node node_modules/jest/bin/jest.js --watch"
   },
   "dependencies": {
+    "@mapbox/polyline": "^1.0.0",
     "md5": "^2.2.1",
     "native-base": "^2.12.1",
     "react": "16.6.3",

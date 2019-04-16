@@ -7,6 +7,7 @@ import Connection from "../../../helper/Connection";
 import Identify from "../../../helper/Identify";
 import NavigationManager from "../../../helper/NavigationManager";
 import {connect} from "react-redux";
+const polyline = require('@mapbox/polyline');
 
 class InputAddress extends AbstractComponent{
     constructor(props){
@@ -136,6 +137,24 @@ class InputAddress extends AbstractComponent{
             this.setState({
                 resultAutoFill: data.predictions
             })
+        }else if(data.hasOwnProperty('geocoded_waypoints')){
+            let polylineDirection = polyline.decode(data.routes[0].overview_polyline.points);
+            let listDirection = [];
+            polylineDirection.map(point => {
+                listDirection.push(
+                    {
+                        latitude: point[0],
+                        longitude: point[1]
+                    }
+                )
+            });
+            this.props.storeData('polyline', listDirection);
+            this.parent.setState({
+                currentLocation: this.state.currentLocation,
+                destinationLocation: this.state.destinationLocation
+            });
+            NavigationManager.backToPreviousPage(this.props.navigation);
+            this.parent.fitToMarker()
         }else {
             let latitude = data.result.geometry.location.lat;
             let longitude = data.result.geometry.location.lng;
@@ -158,20 +177,23 @@ class InputAddress extends AbstractComponent{
                 this.props.storeData('place_location', dataToStore)
             }
             if(this.state.currentLocation !== '' && this.state.destinationLocation !== ''){
-                this.parent.setState({
-                    currentLocation: this.state.currentLocation,
-                    destinationLocation: this.state.destinationLocation
-                });
-                NavigationManager.backToPreviousPage(this.props.navigation)
-                this.parent.fitToMarker()
+                this.getDirection();
             }
         }
     }
+    getDirection(){
+        Connection.setGetData({
+            origin: this.props.current_location.position.latitude.toString() + ',' + this.props.current_location.position.longitude.toString(),
+            destination: this.props.destination_location.position.latitude.toString() + ',' + this.props.destination_location.position.longitude.toString(),
+            mode: 'transit'
+        });
+        Connection.connect('directions/json', this)
+    }
     renderResultAutoFill(){
         if(this.state.resultAutoFill){
-            let list = []
+            let list = [];
             this.state.resultAutoFill.forEach(place => {
-                let address = Identify.formatAddress(place.description)
+                let address = Identify.formatAddress(place.description);
                 list.push(
                     <TouchableOpacity
                         onPress={() => {

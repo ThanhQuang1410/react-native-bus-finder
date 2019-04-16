@@ -16,7 +16,7 @@ class Home extends AbstractComponent{
         super(props);
         this.state = {
             currentLocation: null,
-            destinationLocation: null,
+            destinationLocation: null
         };
         this.mapRef = null;
     }
@@ -125,6 +125,7 @@ class Home extends AbstractComponent{
                     region={this.props.current_location.region}
                 >
                     {listMarker}
+                    {this.props.polyline && <MapView.Polyline coordinates={this.props.polyline} strokeWidth={3} strokeColor={'#20bf6b'}/>}
                 </MapView.Animated>
                 <AddressSection navigation={this.props.navigation} parent={this}/>
                 {this.renderFabCurrent()}
@@ -139,7 +140,8 @@ const mapStateToProps = (state) => {
         current_location: state.redux_data.current_location ,
         place_location: state.redux_data.place_location ,
         destination_location: state.redux_data.destination_location ,
-        isUserUseCurrentPosition: state.redux_data.isUserUseCurrentPosition
+        isUserUseCurrentPosition: state.redux_data.isUserUseCurrentPosition,
+        polyline: state.redux_data.polyline
     };
 }
 const mapDispatchToProps = (dispatch) => {
