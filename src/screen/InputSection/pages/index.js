@@ -138,6 +138,7 @@ class InputAddress extends AbstractComponent{
                 resultAutoFill: data.predictions
             })
         }else if(data.hasOwnProperty('geocoded_waypoints')){
+            this.props.storeData('direction_data', data);
             let polylineDirection = polyline.decode(data.routes[0].overview_polyline.points);
             let listDirection = [];
             polylineDirection.map(point => {
@@ -154,7 +155,9 @@ class InputAddress extends AbstractComponent{
                 destinationLocation: this.state.destinationLocation
             });
             NavigationManager.backToPreviousPage(this.props.navigation);
-            this.parent.fitToMarker()
+            setTimeout(() => {
+                this.parent.fitToMarker()
+            }, 500)
         }else {
             let latitude = data.result.geometry.location.lat;
             let longitude = data.result.geometry.location.lng;

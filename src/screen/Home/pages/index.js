@@ -70,34 +70,6 @@ class Home extends AbstractComponent{
     fitToMarker(){
         this.mapRef.getNode().fitToElements(true);
     }
-    renderFabCurrent(){
-        return (
-            <TouchableOpacity
-                onPress={() => {
-                    this.getCurrentLocation()
-                }}
-                activeOpacity={0.8}
-                style={{
-                    width: 55,
-                    height: 55,
-                    position: 'absolute',
-                    right: 25,
-                    bottom: verticalScale(170),
-                    backgroundColor: 'white',
-                    borderRadius: 55/2,
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 1 },
-                    shadowOpacity: 0.2,
-                    shadowRadius: 2,
-                    elevation: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}
-            >
-                <Image resizeMode={'contain'} style={{width: 35, height: 35}} source={require('../../../../media/Images/marker_cur.png')}/>
-            </TouchableOpacity>
-        )
-    }
 
     createLayout(){
         let listMarker = [];
@@ -128,7 +100,6 @@ class Home extends AbstractComponent{
                     {this.props.polyline && <MapView.Polyline coordinates={this.props.polyline} strokeWidth={3} strokeColor={'#20bf6b'}/>}
                 </MapView.Animated>
                 <AddressSection navigation={this.props.navigation} parent={this}/>
-                {this.renderFabCurrent()}
             </Container>
         )
     }
@@ -141,7 +112,8 @@ const mapStateToProps = (state) => {
         place_location: state.redux_data.place_location ,
         destination_location: state.redux_data.destination_location ,
         isUserUseCurrentPosition: state.redux_data.isUserUseCurrentPosition,
-        polyline: state.redux_data.polyline
+        polyline: state.redux_data.polyline,
+        direction_data: state.redux_data.direction_data
     };
 }
 const mapDispatchToProps = (dispatch) => {

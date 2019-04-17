@@ -4,7 +4,8 @@ const initialState = {
     place_location: {},
     destination_location: {},
     location_map: {},
-    polyline: null
+    polyline: null,
+    direction_data: null
 }
 export function redux_data(state = initialState, action) {
     if (action.type === 'actions') {
@@ -33,6 +34,8 @@ function processSingleAction(state, action) {
             return { ...state, ...{ 'destination_location': action.data }, location_map };
         case 'polyline':
             return {...state, ...{ 'polyline': action.data } };
+        case 'direction_data':
+            return {...state, ...{ 'direction_data': action.data } };
         default:
             let customData = {};
             customData[action.type] = action.data;

@@ -2,7 +2,7 @@ import React from 'react'
 import AbstractComponent from "../../../base/componetAbstarct";
 import {scale, verticalScale} from "react-native-size-matters";
 import {Text, View} from "native-base";
-import {Dimensions, Image, TouchableOpacity} from "react-native";
+import {Dimensions, Image, TouchableOpacity , FlatList} from "react-native";
 import NavigationManager from "../../../helper/NavigationManager";
 import Identify from "../../../helper/Identify";
 
@@ -25,67 +25,186 @@ export default class AddressSection extends React.Component{
         }
         NavigationManager.openPage(this.props.navigation, 'InputAddress', params)
     }
-    render(){
-        return(
+    renderWalking(item){
+        return (
+            <TouchableOpacity
+                style={{
+                    borderRadius: 15,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    maxWidth: Dimensions.get('window').width * 2 / 3,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 0 },
+                    shadowOpacity: 0.2,
+                    shadowRadius: 8,
+                    elevation: 10,
+                    marginLeft: 10,
+                    marginRight: 10,
+                    backgroundColor: 'white',
+                    padding: 10
+                }}
+            >
+                <Image resizeMode={'contain'} style={{width: 20, height: 40}} source={require('../../../../media/Images/walk.png')}/>
+                <View style={{flexGrow: 1}}>
+                    <Text style={{color: 'black', fontSize: 13, fontWeight: '600', marginRight: 20}}>{item.html_instructions.replace('Walk to', 'Đi bộ tới')}</Text>
+                    <Text style={{color: '#b2b2b2', fontSize: 11, marginRight: 20}}>{item.distance.text} - {item.duration.text}</Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+    renderTransit(item){
+        return (
+            <TouchableOpacity
+                style={{
+                    borderRadius: 15,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    maxWidth: Dimensions.get('window').width * 2 / 3,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 0 },
+                    shadowOpacity: 0.2,
+                    shadowRadius: 8,
+                    elevation: 10,
+                    marginLeft: 10,
+                    marginRight: 10,
+                    backgroundColor: 'white',
+                    padding: 10
+                }}
+            >
+                <Image resizeMode={'contain'} style={{width: 20, height: 40}} source={require('../../../../media/Images/bus_mini.png')}/>
+                <View style={{flexGrow: 1}}>
+                    <Text style={{color: 'black', fontSize: 13, fontWeight: '600', marginRight: 20}}>{item.transit_details.line.name}</Text>
+                    <Text style={{color: '#b2b2b2', fontSize: 11, marginRight: 20}}>{item.transit_details.departure_stop.name} - {item.transit_details.arrival_stop.name}</Text>
+                    <Text style={{color: '#b2b2b2', fontSize: 11, marginRight: 20}}>{item.duration.text} ({item.transit_details.num_stops} điểm )</Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
+    renderItem(item){
+        switch (item.travel_mode){
+            case 'WALKING':
+                return this.renderWalking(item);
+            case 'TRANSIT':
+                return this.renderTransit(item);
+            default:
+                return null
+        }
+    }
+    renderDirectionInstruction(){
+        if(this.parent.props.direction_data){
+            return (
+                <FlatList
+                    style={{
+                        paddingLeft: 12, paddingRight: 12,
+                        paddingBottom: 25,
+                        paddingTop: 15
+                    }}
+                    horizontal={true}
+                    data={this.parent.props.direction_data.routes[0].legs[0].steps}
+                    keyExtractor={() => Identify.makeid()}
+                    renderItem={({ item }) => this.renderItem(item)}
+                />
+            )
+        }
+        return null;
+    }
+    renderFabCurrent(){
+        return (
             <TouchableOpacity
                 onPress={() => {
-                    this.handleSectionPress()
+                    this.parent.getCurrentLocation()
                 }}
-                activeOpacity={0.92}
+                activeOpacity={0.8}
                 style={{
-                    height: verticalScale(150),
+                    width: 55,
+                    height: 55,
+                    position: 'absolute',
+                    right: 25,
+                    top: -100,
+                    backgroundColor: 'white',
+                    borderRadius: 55/2,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 1 },
+                    shadowOpacity: 0.2,
+                    shadowRadius: 2,
+                    elevation: 5,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}
+            >
+                <Image resizeMode={'contain'} style={{width: 35, height: 35}} source={require('../../../../media/Images/marker_cur.png')}/>
+            </TouchableOpacity>
+        )
+    }
+    render(){
+        return(
+            <View
+                style={{
+                    flexDirection: 'column',
                     width: '100%',
                     position: 'absolute',
                     bottom: 0,
                     backgroundColor: 'white',
-                    flexDirection: 'row',
-                    padding: 15
                 }}
             >
-                <View
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
+                <TouchableOpacity
+                    onPress={() => {
+                        this.handleSectionPress()
                     }}
-                >
-                    <Image resizeMode={'contain'} style={{width: 25, height: 25, aspectRatio: 1}} source={require('../../../../media/Images/current.png')}/>
-                    <View style={{height: verticalScale(35), justifyContent: 'center', alignItems: 'center'}}>
-                        <Image resizeMode={'contain'} style={{width: 7, height: verticalScale(20)}}  source={require('../../../../media/Images/dashborder.png')}/>
-                    </View>
-                    <Image resizeMode={'contain'} style={{width: 25, height: 25, aspectRatio: 1}} source={require('../../../../media/Images/destination.png')}/>
-                </View >
-                <View
+                    activeOpacity={0.92}
                     style={{
-                        flexGrow: 1,
-                        marginLeft: 15
+                        height: verticalScale(150),
+                        flexDirection: 'row',
+                        padding: 15
                     }}
                 >
                     <View
                         style={{
-                            flexGrow: 1,
-                            width: '100%',
-                            borderBottomWidth: 1,
-                            borderBottomColor: '#f1f1f1',
                             justifyContent: 'center',
-                            paddingRight: 15
-                        }}>
-                        <Text numberOfLines={1} style={this.parent.state.currentLocation ? {fontSize: 13} : {fontWeight: '500',color: '#d8d8d8', fontSize: 18}}>
-                            {this.parent.state.currentLocation !== null ? Identify.formatAddress(this.parent.state.currentLocation).mainAddress :   'Bạn đang ở đây'}
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Image resizeMode={'contain'} style={{width: 25, height: 25, aspectRatio: 1}} source={require('../../../../media/Images/current.png')}/>
+                        <View style={{height: verticalScale(35), justifyContent: 'center', alignItems: 'center'}}>
+                            <Image resizeMode={'contain'} style={{width: 7, height: verticalScale(20)}}  source={require('../../../../media/Images/dashborder.png')}/>
+                        </View>
+                        <Image resizeMode={'contain'} style={{width: 25, height: 25, aspectRatio: 1}} source={require('../../../../media/Images/destination.png')}/>
+                    </View >
+                    <View
+                        style={{
+                            flexGrow: 1,
+                            marginLeft: 15
+                        }}
+                    >
+                        <View
+                            style={{
+                                flexGrow: 1,
+                                width: '100%',
+                                borderBottomWidth: 1,
+                                borderBottomColor: '#f1f1f1',
+                                justifyContent: 'center',
+                                paddingRight: 15
+                            }}>
+                            <Text numberOfLines={1} style={this.parent.state.currentLocation ? {fontSize: 13} : {fontWeight: '500',color: '#d8d8d8', fontSize: 18}}>
+                                {this.parent.state.currentLocation !== null ? Identify.formatAddress(this.parent.state.currentLocation).mainAddress :   'Bạn đang ở đây'}
                             </Text>
+                        </View>
+                        <View
+                            style={{
+                                flexGrow: 1,
+                                width: '100%',
+                                justifyContent: 'center',
+                                paddingRight: 15
+                            }}>
+                            <Text numberOfLines={1} style={this.parent.state.destinationLocation ? {fontSize: 13} : {fontWeight: '500',color: '#d8d8d8', fontSize: 18}}>
+                                {this.parent.state.destinationLocation !== null ? Identify.formatAddress(this.parent.state.destinationLocation).mainAddress : 'Nhập điểm đến'}
+                            </Text>
+                        </View>
                     </View>
-                    <View
-                        style={{
-                            flexGrow: 1,
-                            width: '100%',
-                            justifyContent: 'center',
-                            paddingRight: 15
-                        }}>
-                        <Text numberOfLines={1} style={this.parent.state.destinationLocation ? {fontSize: 13} : {fontWeight: '500',color: '#d8d8d8', fontSize: 18}}>
-                            {this.parent.state.destinationLocation !== null ? Identify.formatAddress(this.parent.state.destinationLocation).mainAddress : 'Nhập điểm đến'}
-                        </Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+                {this.renderFabCurrent()}
+                {this.renderDirectionInstruction()}
+            </View>
         )
     }
 }
