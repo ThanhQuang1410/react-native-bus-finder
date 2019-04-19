@@ -1,4 +1,4 @@
-package com.busfinder;
+package com.bushanoi;
 
 import android.app.Application;
 

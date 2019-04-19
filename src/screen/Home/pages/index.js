@@ -94,6 +94,8 @@ class Home extends AbstractComponent{
                     showsUserLocation={true}
                     followUserLocation={true}
                     showsMyLocationButton={false}
+                    mapPadding={{bottom: verticalScale(100), left: 20, right: 20}}
+                    // showsTraffic={true}
                     region={this.props.current_location.region}
                 >
                     {listMarker}

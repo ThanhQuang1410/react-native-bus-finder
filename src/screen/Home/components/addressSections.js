@@ -37,11 +37,13 @@ export default class AddressSection extends React.Component{
                     shadowOffset: { width: 0, height: 0 },
                     shadowOpacity: 0.2,
                     shadowRadius: 8,
-                    elevation: 10,
+                    elevation: 7,
                     marginLeft: 10,
                     marginRight: 10,
                     backgroundColor: 'white',
-                    padding: 10
+                    padding: 10,
+                    marginBottom: 15,
+                    marginTop: 15
                 }}
             >
                 <Image resizeMode={'contain'} style={{width: 20, height: 40}} source={require('../../../../media/Images/walk.png')}/>
@@ -64,11 +66,13 @@ export default class AddressSection extends React.Component{
                     shadowOffset: { width: 0, height: 0 },
                     shadowOpacity: 0.2,
                     shadowRadius: 8,
-                    elevation: 10,
+                    elevation: 7,
                     marginLeft: 10,
                     marginRight: 10,
                     backgroundColor: 'white',
-                    padding: 10
+                    padding: 10,
+                    marginBottom: 15,
+                    marginTop: 15
                 }}
             >
                 <Image resizeMode={'contain'} style={{width: 20, height: 40}} source={require('../../../../media/Images/bus_mini.png')}/>
@@ -96,9 +100,8 @@ export default class AddressSection extends React.Component{
                 <FlatList
                     style={{
                         paddingLeft: 12, paddingRight: 12,
-                        paddingBottom: 25,
-                        paddingTop: 15
                     }}
+                    showsHorizontalScrollIndicator={false}
                     horizontal={true}
                     data={this.parent.props.direction_data.routes[0].legs[0].steps}
                     keyExtractor={() => Identify.makeid()}
@@ -145,6 +148,7 @@ export default class AddressSection extends React.Component{
                     position: 'absolute',
                     bottom: 0,
                     backgroundColor: 'white',
+                    padding: 15
                 }}
             >
                 <TouchableOpacity
@@ -153,9 +157,8 @@ export default class AddressSection extends React.Component{
                     }}
                     activeOpacity={0.92}
                     style={{
-                        height: verticalScale(150),
-                        flexDirection: 'row',
-                        padding: 15
+                        height: verticalScale(120),
+                        flexDirection: 'row'
                     }}
                 >
                     <View
