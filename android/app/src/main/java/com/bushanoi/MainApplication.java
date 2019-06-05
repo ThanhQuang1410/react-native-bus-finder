@@ -3,6 +3,7 @@ package com.bushanoi;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.airbnb.android.react.maps.MapsPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FBSDKPackage(),
             new RNExitAppPackage(),
             new ReactNativeRestartPackage(),
             new MapsPackage(),

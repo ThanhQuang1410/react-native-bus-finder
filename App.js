@@ -18,6 +18,9 @@ import { Alert } from  'react-native'
 import RNRestart  from 'react-native-restart'
 import RNExitApp from 'react-native-exit-app';
 const store = createStore(reducers);
+import * as firebase from 'firebase'
+import {firebaseConfig} from "./firebaseConnect";
+firebase.initializeApp(firebaseConfig);
 
 export default class App extends React.Component {
     constructor(props) {

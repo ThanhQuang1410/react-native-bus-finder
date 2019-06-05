@@ -54,7 +54,7 @@ export default class AddressSection extends React.Component{
             </TouchableOpacity>
         )
     }
-    renderTransit(item){
+    renderTransit = (item) => {
         return (
             <TouchableOpacity
                 style={{

@@ -1,5 +1,4 @@
-import firebase from 'react-native-firebase'
-var firebaseConfig = {
+export const firebaseConfig = {
     apiKey: "AIzaSyAdMJzMrA_WOCEK9IYgLj13k7YdM89gYkU",
     authDomain: "busfinder-1552206585305.firebaseapp.com",
     databaseURL: "https://busfinder-1552206585305.firebaseio.com",
@@ -8,5 +7,3 @@ var firebaseConfig = {
     messagingSenderId: "398689985179",
     appId: "1:398689985179:web:dea8a6e7f5a5c1b3"
 };
-// Initialize Firebase
-export default firebaseConnect = firebase.initializeApp(firebaseConfig);
