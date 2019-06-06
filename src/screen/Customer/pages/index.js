@@ -4,32 +4,37 @@ import { Container , Text , Content , View , Input , Item , Button , Icon } from
 import { Image , TouchableOpacity } from 'react-native';
 import firebase from 'firebase'
 import NavigationManager from "../../../helper/NavigationManager";
-const provider = new firebase.auth.GoogleAuthProvider();
+import {GoogleSigninButton, GoogleSignin} from 'react-native-google-signin'
 export default class Login extends AbstractComponent{
     constructor(props) {
         super(props);
         this.state = {
+            ...this.state,
             emailStatus: false,
             passStatus: false,
             borderEmail: '#c3c3c3',
-            borderPass: '#c3c3c3',
-            rememberMe: false
+            borderPass: '#c3c3c3'
         };
         this.email = '';
         this.password = '';
     }
+    componentDidMount(){
+        GoogleSignin.configure({
+            iosClientId: '398689985179-vg92rts6k75ou0s25ov1l6gta2dvqdt1.apps.googleusercontent.com',
+        });
+    }
     signIn () {
-        console.log(this.email)
-        console.log(this.password)
+        this.showLoading('dialog');
         firebase.auth().signInWithEmailAndPassword(this.email, this.password)
             .then(() => {
-            console.log('asda')
+                this.showLoading();
                 NavigationManager.openRootPage(this.props.navigation, 'Home')
             })
             .catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
+            console.log(errorMessage)
             // ...
         });
     }
@@ -50,6 +55,20 @@ export default class Login extends AbstractComponent{
         this.setState({
             [key]: '#c3c3c3'
         })
+    }
+    _signIn = () => {
+        GoogleSignin
+            .signIn()
+            .then(data => {
+                const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken,data.accessToken);
+                return firebase.auth().signInWithCredential(credential)
+            })
+            .then(currentUser => {
+                console.log(currentUser);
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
     render(){
         return(
@@ -84,6 +103,7 @@ export default class Login extends AbstractComponent{
                     >
                         <Icon style={{color: '#c3c3c3'}} type='MaterialCommunityIcons' name='email-outline' />
                         <Input placeholder='Email'
+                               autoCapitalize='none'
                                onBlur={ () => this.onBlur('borderEmail') }
                                onFocus={ () => this.onFocus('borderEmail') }
                                onChangeText={text => {
@@ -116,24 +136,6 @@ export default class Login extends AbstractComponent{
                                }}
                         />
                     </Item>
-                    <TouchableOpacity
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            marginTop: 10,
-                            marginBottom: 15
-                        }}
-                        onPress={() => {
-                            this.setState(oldState => {
-                                return {
-                                    rememberMe: !oldState.rememberMe
-                                }
-                            })
-                        }}
-                    >
-                        <Icon style={{color: "#20bf6b"}} name={this.state.rememberMe ? 'md-checkmark-circle-outline' : 'md-radio-button-off'}/>
-                        <Text style={{marginLeft: 10}}>Nhớ mật khẩu</Text>
-                    </TouchableOpacity>
                     <Button
                         full
                         disabled={!this.state.emailStatus || !this.state.passStatus}
@@ -154,8 +156,24 @@ export default class Login extends AbstractComponent{
                             this.signIn()
                         }}
                     >
-                        <Text style={{color: 'white', fontWeight: '900'}}>Đăng nhập</Text>
+                        <Text style={{color: 'white' }}>Đăng nhập</Text>
                     </Button>
+                    <View
+                        style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            marginTop: 25
+                        }}
+                    >
+                        <View style={{flexGrow: 1, height: '50%', borderBottomColor: '#7e7e7e', borderBottomWidth: 1}}/>
+                        <Text style={{fontSize: 18, marginLeft: 7, marginRight: 7 }}>hoặc</Text>
+                        <View style={{flexGrow: 1, height: '50%', borderBottomColor: '#7e7e7e', borderBottomWidth: 1}}/>
+                    </View>
+                    <GoogleSigninButton
+                        style={{ width: '100%', height: 48 , marginTop: 25 , justifyContent: 'center', alignItems: 'center' , alignContent: 'center'}}
+                        size={GoogleSigninButton.Size.Wide}
+                        color={GoogleSigninButton.Color.Light}
+                        onPress={this._signIn}/>
                     <TouchableOpacity
                         style={{
                             marginTop: 35,

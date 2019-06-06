@@ -4,10 +4,12 @@ import { Container , Text , Content , View , Input , Item , Button , Icon } from
 import { Image , TouchableOpacity , Alert } from 'react-native';
 import md5 from 'md5'
 import firebase from 'firebase'
+import NavigationManager from "../../../helper/NavigationManager";
 export default class Register extends AbstractComponent{
     constructor(props) {
         super(props);
         this.state = {
+            ...this.state,
             emailBorder: '#c3c3c3',
             passwordBorder: '#c3c3c3',
             confirmPasswordBorder: '#c3c3c3',
@@ -26,6 +28,7 @@ export default class Register extends AbstractComponent{
     }
 
     signUp(){
+        this.showLoading('dialog');
         let email = this.form.email;
         let password = this.form.password;
         let confirmPassword = this.form.confirmPassword;
@@ -35,10 +38,11 @@ export default class Register extends AbstractComponent{
                 'Mật khẩu chưa được nhập giống nhau',
             );
         }else {
-            password = md5(password);
             firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(res => {
-                    console.log(res)
+                    console.log(res);
+                    this.showLoading();
+                    NavigationManager.backToPreviousPage(this.props.navigation)
                 })
                 .catch(function(error) {
                     Alert.alert(
@@ -113,6 +117,7 @@ export default class Register extends AbstractComponent{
                 >
                     <Icon style={{color: '#c3c3c3'}} type='MaterialCommunityIcons' name={icon} />
                     <Input placeholder={placeHolder}
+                           autoCapitalize='none'
                            secureTextEntry={stateKey === 'password' || stateKey === 'confirmPassword'}
                            onBlur={ () => this.onBlur(backGroundKey) }
                            onFocus={ () => this.onFocus(backGroundKey) }

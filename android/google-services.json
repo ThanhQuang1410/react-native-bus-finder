@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "398689985179",
+    "firebase_url": "https://busfinder-1552206585305.firebaseio.com",
+    "project_id": "busfinder-1552206585305",
+    "storage_bucket": "busfinder-1552206585305.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398689985179:android:d60438a6087485ec",
+        "android_client_info": {
+          "package_name": "com.bushanoi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398689985179-fmvdt0suh4t8j8bvanjl0mr7ojucj4bi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0zSuLzbUIJ_Mlj81maT7tZV0c7Sc2Bos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398689985179-fmvdt0suh4t8j8bvanjl0mr7ojucj4bi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "398689985179-vg92rts6k75ou0s25ov1l6gta2dvqdt1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.BusHaNoi.levi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

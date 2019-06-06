@@ -3,6 +3,7 @@ import md5 from 'md5';
 
 class Identify {
     static location = {};
+    static mainColor = '#20bf6b';
 
     static makeid() {
         let text = "";

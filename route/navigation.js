@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import {Dimensions} from 'react-native'
 import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
 import Splash from '../src/screen/splash/pages'
 import Home from '../src/screen/Home/pages'
 import InputAddress from '../src/screen/InputSection/pages'
 import Login from '../src/screen/Customer/pages'
 import Register from '../src/screen/Customer/pages/register'
+import Drawer from '../src/base/drawer'
 const Stack = createStackNavigator(
     {
         Splash: { screen: Splash },
@@ -39,8 +41,9 @@ const Router = createDrawerNavigator(
         Stack: { screen: Stack }
     },
     {
-        // contentComponent: props => <Drawer {...props} />,
+        contentComponent: props => <Drawer {...props} />,
         initialRouteName: 'Splash',
+        drawerWidth: Dimensions.get('screen').width * 3 / 5 > 280 ? 280 : Dimensions.get('screen').width * 2 / 3
     }
 );
 export default Router;

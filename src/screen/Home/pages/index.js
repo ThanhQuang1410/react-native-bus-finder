@@ -15,13 +15,16 @@ class Home extends AbstractComponent{
     constructor(props) {
         super(props);
         this.state = {
+            ...this.state,
             currentLocation: null,
             destinationLocation: null
         };
+        this.customerData = this.props.navigation.getParam('customerData');
         this.mapRef = null;
     }
 
     componentDidMount(){
+        this.props.storeData('customer_data', this.customerData);
         this.getCurrentLocation()
     }
 

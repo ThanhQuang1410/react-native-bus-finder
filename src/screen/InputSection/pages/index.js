@@ -16,6 +16,7 @@ class InputAddress extends AbstractComponent{
         this.destinationLocation = this.props.navigation.getParam('destinationLocation') ? this.props.navigation.getParam('destinationLocation') : '';
         this.parent = this.props.navigation.getParam('parent')
         this.state = {
+            ...this.state,
             currentLocation: this.currentLocation,
             destinationLocation: this.destinationLocation,
             isInputPlace: false,

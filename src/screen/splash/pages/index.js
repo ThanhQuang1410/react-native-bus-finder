@@ -4,6 +4,7 @@ import { Image } from 'react-native'
 import ComponectAbstract from '../../../base/componetAbstarct'
 import { connect } from 'react-redux'
 import NavigationManager from "../../../helper/NavigationManager";
+import firebase from 'firebase'
 import Redirect from "./redirect";
 class Splash extends ComponectAbstract{
     static navigationOptions = () => {
@@ -12,6 +13,11 @@ class Splash extends ComponectAbstract{
             drawerLockMode,
         };
     };
+    componentDidMount(){
+        firebase.database().ref('/app_configs/').once('value').then(function(snapshot) {
+            this.props.storeData('app_config',snapshot.val())
+        }.bind(this));
+    }
     render(){
         if(!this.props.data){
             return(
@@ -38,5 +44,12 @@ class Splash extends ComponectAbstract{
 const mapStateToProps = (state) => {
     return { data: state.redux_data.current_location };
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        storeData: (type, data) => {
+            dispatch({ type: type, data: data })
+        }
+    };
+};
 // export default Splash;
-export default connect(mapStateToProps)(Splash);
+export default connect(mapStateToProps, mapDispatchToProps)(Splash);
