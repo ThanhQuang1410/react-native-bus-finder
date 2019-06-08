@@ -38,7 +38,6 @@ class Home extends AbstractComponent{
                 const { latitude, longitude } = coords;
 
                 this.handleLocation(coords)
-                console.log(latitude, longitude)
                 Connection.setGetData({
                     latlng: latitude.toString() + ',' + longitude.toString()
                 })
@@ -98,11 +97,11 @@ class Home extends AbstractComponent{
                     followUserLocation={true}
                     showsMyLocationButton={false}
                     mapPadding={{bottom: verticalScale(100), left: 20, right: 20}}
-                    // showsTraffic={true}
+                    showsTraffic={this.props.showTraffic}
                     region={this.props.current_location.region}
                 >
                     {listMarker}
-                    {this.props.polyline && <MapView.Polyline coordinates={this.props.polyline} strokeWidth={3} strokeColor={'#20bf6b'}/>}
+                    {this.props.polyline && <MapView.Polyline coordinates={this.props.polyline} strokeWidth={3} strokeColor={'#008e43'}/>}
                 </MapView.Animated>
                 <AddressSection navigation={this.props.navigation} parent={this}/>
             </Container>
@@ -114,6 +113,7 @@ const mapStateToProps = (state) => {
     return {
         location_map: state.redux_data.location_map ,
         current_location: state.redux_data.current_location ,
+        showTraffic: state.redux_data.showTraffic,
         place_location: state.redux_data.place_location ,
         destination_location: state.redux_data.destination_location ,
         isUserUseCurrentPosition: state.redux_data.isUserUseCurrentPosition,

@@ -1,5 +1,6 @@
 const initialState = {
     isUserUseCurrentPosition: true,
+    showTraffic: true,
     current_location: {},
     place_location: {},
     destination_location: {},
@@ -42,6 +43,8 @@ function processSingleAction(state, action) {
             return {...state, ...{ 'app_config': action.data } };
         case 'customer_data':
             return {...state, ...{ 'customer_data': action.data } };
+        case 'showTraffic':
+            return { ...state, ...{ 'showTraffic': action.data } };
         default:
             let customData = {};
             customData[action.type] = action.data;

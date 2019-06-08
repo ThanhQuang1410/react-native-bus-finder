@@ -1,14 +1,17 @@
 import React from 'react'
 import AbstractComponent from "../../../base/componetAbstarct";
-import {scale, verticalScale} from "react-native-size-matters";
-import {Text, View} from "native-base";
-import {Dimensions, Image, TouchableOpacity , FlatList} from "react-native";
+import {scale, verticalScale } from "react-native-size-matters";
+import {Text, View , Icon , Fab } from "native-base";
+import {Dimensions, Image, TouchableOpacity , FlatList } from "react-native";
 import NavigationManager from "../../../helper/NavigationManager";
 import Identify from "../../../helper/Identify";
 
 export default class AddressSection extends React.Component{
     constructor(props) {
         super(props);
+        this.state  = {
+            active: false
+        };
         this.deviceWidth = Dimensions.get('window').width
         this.destination = this.props.navigation.getParam('destination')
         this.parent = this.props.parent
@@ -113,30 +116,98 @@ export default class AddressSection extends React.Component{
     }
     renderFabCurrent(){
         return (
+                <TouchableOpacity
+                    onPress={() => {
+                        this.parent.getCurrentLocation();
+                        this.setState({
+                            active: false
+                        })
+                    }}
+                    activeOpacity={0.8}
+                    style={{
+                        backgroundColor: 'white',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginBottom: verticalScale(165),
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 1 },
+                        shadowOpacity: 0.2,
+                        shadowRadius: 2,
+                        elevation: 5,
+                    }}
+                >
+                    <View
+                        style={{
+                            position: 'absolute',
+                            right: 60,
+                            padding: 5,
+                            borderRadius: 10,
+                            backgroundColor: '#ffffffcf'
+                        }}
+                    >
+                        <Text>Hiển thị vị trí hiện tại của bạn</Text>
+                    </View>
+                    <Image resizeMode={'contain'} style={{width: 25, height: 25}} source={require('../../../../media/Images/marker_cur.png')}/>
+                </TouchableOpacity>
+        )
+    }
+    renderFavoriteFab(){
+        return (
             <TouchableOpacity
                 onPress={() => {
-                    this.parent.getCurrentLocation()
+                    console.log({
+                        polyline: this.parent.props.polyline,
+                        currentLocation: this.parent.currentLocation,
+                        destinationLocation: this.parent.destinationLocation
+                    });
+                    this.setState({
+                        active: false
+                    })
                 }}
                 activeOpacity={0.8}
                 style={{
-                    width: 55,
-                    height: 55,
-                    position: 'absolute',
-                    right: 25,
-                    top: -100,
                     backgroundColor: 'white',
-                    borderRadius: 55/2,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginBottom: verticalScale(165),
                     shadowColor: '#000',
                     shadowOffset: { width: 0, height: 1 },
                     shadowOpacity: 0.2,
                     shadowRadius: 2,
                     elevation: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center'
                 }}
             >
-                <Image resizeMode={'contain'} style={{width: 35, height: 35}} source={require('../../../../media/Images/marker_cur.png')}/>
+                <View
+                    style={{
+                        position: 'absolute',
+                        right: 60,
+                        padding: 5,
+                        borderRadius: 10,
+                        backgroundColor: '#ffffffcf'
+                    }}
+                >
+                    <Text>Thêm vào tuyến ưa thích của bạn</Text>
+                </View>
+                <Icon type='MaterialCommunityIcons' name={'heart'} style={{color: Identify.mainColor}}/>
             </TouchableOpacity>
+        )
+    }
+    renderFab(){
+        return (
+            <Fab
+                active={this.state.active}
+                direction="up"
+                position="bottomRight"
+                style={{ backgroundColor: Identify.mainColor, marginBottom: verticalScale(160) , width: 45, height: 45}}
+                onPress={() => this.setState(oldState => {
+                    return {
+                        active: !oldState.active
+                    }
+                })}>
+                <Icon type='MaterialCommunityIcons' name="bus" />
+                {this.renderFabCurrent()}
+                {this.renderFavoriteFab()}
+            </Fab>
         )
     }
     render(){
@@ -205,7 +276,7 @@ export default class AddressSection extends React.Component{
                         </View>
                     </View>
                 </TouchableOpacity>
-                {this.renderFabCurrent()}
+                {this.renderFab()}
                 {this.renderDirectionInstruction()}
             </View>
         )

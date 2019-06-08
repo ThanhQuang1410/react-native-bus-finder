@@ -13,6 +13,11 @@ class Identify {
         return md5(text + Date.now());
     }
 
+    static isEmptyObject(object) {
+        let objectLenght = Object.keys(object);
+        return objectLenght <= 0;
+    }
+
     static formatAddress(place){
         let address = place.split(',');
         let mainAddress = address[0] + address[1];

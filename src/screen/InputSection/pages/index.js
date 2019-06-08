@@ -1,7 +1,7 @@
 import React from 'react'
 import AbstractComponent from "../../../base/componetAbstarct";
-import { Container , Text , Content , View , Input , Item} from 'native-base'
-import { Image , TouchableOpacity } from 'react-native';
+import { Container , Text , Content , View , Input , Item , Toast } from 'native-base'
+import { Image , TouchableOpacity , Keyboard } from 'react-native';
 import {scale, verticalScale} from "react-native-size-matters";
 import Connection from "../../../helper/Connection";
 import Identify from "../../../helper/Identify";
@@ -14,16 +14,15 @@ class InputAddress extends AbstractComponent{
         super(props)
         this.currentLocation = this.props.navigation.getParam('currentLocation') ? this.props.navigation.getParam('currentLocation') : '';
         this.destinationLocation = this.props.navigation.getParam('destinationLocation') ? this.props.navigation.getParam('destinationLocation') : '';
-        this.parent = this.props.navigation.getParam('parent')
+        this.parent = this.props.navigation.getParam('parent');
         this.state = {
             ...this.state,
-            currentLocation: this.currentLocation,
-            destinationLocation: this.destinationLocation,
-            isInputPlace: false,
-            isInputDestination: false,
-            resultAutoFill: null,
-
-        }
+            resultAutoFill : null
+        };
+        this.isTyping = '';
+        this.placeLatLong = !Identify.isEmptyObject(this.props.place_location) ? this.props.place_location : this.props.currentLocation;
+        this.destinationLatLong = this.props.destinationLocation;
+        this.refInput = {}
     }
     renderMarker(){
         return(
@@ -39,6 +38,34 @@ class InputAddress extends AbstractComponent{
                 </View>
                 <Image resizeMode={'contain'} style={{width: 25, height: 25, aspectRatio: 1}} source={require('../../../../media/Images/destination.png')}/>
             </View >
+        )
+    }
+    renderInput (inputKey,placeHolder,style={}) {
+        return (
+            <Item
+                style={style}
+            >
+                <Input
+                    clearTextOnFocus={true}
+                    numberOfLines={1}
+                    returnKeyType={'done'}
+                    defaultValue={this[inputKey]}
+                    placeholder={placeHolder}
+                    style={{
+                        fontSize: 13,
+                        fontWeight: '500',
+                        marginBottom: 15
+                    }}
+                    onChangeText={text => {
+                        if(inputKey === 'currentLocation'){
+                            this.props.storeData('isUserUseCurrentPosition', false);
+                        }
+                        this.isTyping = inputKey;
+                        this[inputKey] = text;
+                        this.requestAutoFill(text)
+                    }}
+                />
+            </Item>
         )
     }
     renderInputSec(){
@@ -60,138 +87,106 @@ class InputAddress extends AbstractComponent{
                         flexDirection: 'column'
                     }}
                 >
-                    <Item>
-                        <Input
-                            onFocus= {() => this.setState({currentLocation : ''})}
-                            numberOfLines={1}
-                            returnKeyType={'done'}
-                            defaultValue={this.state.currentLocation}
-                            value={this.state.currentLocation}
-                            placeholder={'Nhập điểm '}
-                            style={{
-                                fontSize: 13,
-                                fontWeight: '500'
-                            }}
-                            onChangeText={text => {
-                                this.props.storeData('isUserUseCurrentPosition', false);
-                                this.state.currentLocation = text;
-                                this.setState({
-                                    isInputPlace: true,
-                                    isInputDestination: false
-                                });
-                                this.requestAutoFill(text)
-                            }}
-                        />
-                    </Item>
-                    <Item
-                        style={{
-                            borderColor: 'transparent'
-                        }}
-                    >
-                        <Input
-                            onFocus= {() => this.setState({destinationLocation : ''})}
-                            numberOfLines={1}
-                            returnKeyType={'done'}
-                            style={{
-                                marginTop: 15,
-                                fontSize: 13,
-                                fontWeight: '500'
-                            }}
-                            defaultValue={this.state.destinationLocation}
-                            value={this.state.destinationLocation}
-                            placeholder={'Nhập điểm đến'}
-                            onChangeText={text => {
-                                this.state.destinationLocation = text
-                                this.setState({
-                                    isInputPlace: false,
-                                    isInputDestination: true
-                                });
-                                this.requestAutoFill(text)
-                            }}
-                        />
-                    </Item>
+                    {this.renderInput('currentLocation','Nhập điểm đến')}
+                    {this.renderInput('destinationLocation','Nhập điểm đi',{borderColor: 'transparent'})}
                 </View>
             </View>
         )
     }
     requestAutoFill(text){
-        let token = Identify.makeid()
+        let token = Identify.makeid();
         Connection.restData();
         Connection.setGetData({
             input: text,
             sessiontoken: token,
             types: 'address',
             radius : 5000,
-            location: this.props.current_location.position.latitude + ',' + this.props.current_location.position.longitude
-        })
-        Connection.connect('place/queryautocomplete/json', this)
+            location: this.props.currentLocation.position.latitude + ',' + this.props.currentLocation.position.longitude
+        });
+        Connection.connect('place/queryautocomplete/json', this, 'GET', 'auto_fill')
     }
     requestGetLatLong(placeId){
         Connection.restData();
         Connection.setGetData({
             placeid: placeId
         });
-        Connection.connect('place/details/json', this)
-    }
-    setData(data){
-        if(data.hasOwnProperty('predictions')){
-            this.setState({
-                resultAutoFill: data.predictions
-            })
-        }else if(data.hasOwnProperty('geocoded_waypoints')){
-            this.props.storeData('direction_data', data);
-            let polylineDirection = polyline.decode(data.routes[0].overview_polyline.points);
-            let listDirection = [];
-            polylineDirection.map(point => {
-                listDirection.push(
-                    {
-                        latitude: point[0],
-                        longitude: point[1]
-                    }
-                )
-            });
-            this.props.storeData('polyline', listDirection);
-            this.parent.setState({
-                currentLocation: this.state.currentLocation,
-                destinationLocation: this.state.destinationLocation
-            });
-            NavigationManager.backToPreviousPage(this.props.navigation);
-            setTimeout(() => {
-                this.parent.fitToMarker()
-            }, 500)
-        }else {
-            let latitude = data.result.geometry.location.lat;
-            let longitude = data.result.geometry.location.lng;
-            let dataToStore = {
-                position: {
-                    latitude,
-                    longitude,
-                },
-                region: {
-                    latitude,
-                    longitude,
-                    latitudeDelta: 0.005,
-                    longitudeDelta: 0.001,
-                }
-            };
-            if(this.state.isInputDestination){
-                this.props.storeData('destination_location', dataToStore)
-            }
-            if(this.state.isInputPlace){
-                this.props.storeData('place_location', dataToStore)
-            }
-            if(this.state.currentLocation !== '' && this.state.destinationLocation !== ''){
-                this.getDirection();
-            }
-        }
+        Connection.connect('place/details/json', this, 'GET', 'get_lat_long')
     }
     getDirection(){
         Connection.setGetData({
-            origin: this.props.current_location.position.latitude.toString() + ',' + this.props.current_location.position.longitude.toString(),
-            destination: this.props.destination_location.position.latitude.toString() + ',' + this.props.destination_location.position.longitude.toString(),
+            origin: this.placeLatLong.position.latitude.toString() + ',' + this.placeLatLong.position.longitude.toString(),
+            destination: this.destinationLatLong.position.latitude.toString() + ',' + this.destinationLatLong.position.longitude.toString(),
             mode: 'transit'
         });
-        Connection.connect('directions/json', this)
+        Connection.connect('directions/json', this, 'GET', 'get_direction')
+    }
+    setData(data, requestID) {
+        switch (requestID){
+            case 'auto_fill':
+                this.setState({resultAutoFill : data.predictions});
+                break;
+            case 'get_lat_long':
+                let dataToStore = {
+                    position: {
+                        latitude: data.result.geometry.location.lat,
+                        longitude: data.result.geometry.location.lng
+                    },
+                    region : {
+                        latitude: data.result.geometry.location.lat,
+                        longitude: data.result.geometry.location.lng,
+                        latitudeDelta: 0.005,
+                        longitudeDelta: 0.001,
+                    }
+                };
+                let key = '';
+                if(this.isTyping === 'currentLocation'){
+                    key = 'place_location';
+                    this.placeLatLong = dataToStore;
+                }else {
+                    key = 'destination_location';
+                    this.destinationLatLong = dataToStore;
+                }
+                this.props.storeData(key, dataToStore);
+                this.getDirection();
+                break;
+            case 'get_direction':
+                if(data.routes.length > 0){
+                    let polylineData = polyline.decode(data.routes[0].overview_polyline.points);
+                    let listDirection = [];
+                    polylineData.map(point => {
+                        listDirection.push(
+                            {
+                                latitude: point[0],
+                                longitude: point[1]
+                            }
+                        )
+                    });
+
+                    this.props.storeData('polyline', listDirection);
+                    this.parent.setState({
+                        currentLocation: this.currentLocation,
+                        destinationLocation: this.destinationLocation
+                    });
+                    NavigationManager.backToPreviousPage(this.props.navigation);
+                    setTimeout(
+                        () => {
+                            this.parent.fitToMarker()
+                        },
+                        500
+                    );
+                } else {
+                    Toast.show({
+                        text: 'Không thể tìm lộ trình với địa chỉ trên. Mời bạn nhập lại!!',
+                        buttonText: 'OK',
+                        buttonTextStyle: {color: Identify.mainColor, fontWeight: '900'},
+                        duration: 3000
+                    })
+                }
+
+                break;
+            default:
+                NavigationManager.backToPreviousPage(this.props.navigation)
+        }
     }
     renderResultAutoFill(){
         if(this.state.resultAutoFill){
@@ -201,13 +196,9 @@ class InputAddress extends AbstractComponent{
                 list.push(
                     <TouchableOpacity
                         onPress={() => {
-                            let key = 'currentLocation';
-                            if(this.state.isInputDestination){
-                                key = 'destinationLocation'
-                            }
-                            this.setState({
-                                [key] : place.description
-                            })
+                            this[this.isTyping] = place.description;
+                            Keyboard.dismiss();
+                            this.forceUpdate();
                             this.requestGetLatLong(place.place_id)
                         }}
                         key={Identify.makeid()}
@@ -252,10 +243,10 @@ class InputAddress extends AbstractComponent{
 }
 const mapStateToProps = (state) => {
     return {
-        current_location: state.redux_data.current_location ,
+        currentLocation: state.redux_data.current_location ,
         isUserUseCurrentPosition: state.redux_data.isUserUseCurrentPosition,
         place_location: state.redux_data.place_location,
-        destination_location: state.redux_data.destination_location
+        destinationLocation: state.redux_data.destination_location
     };
 }
 const mapDispatchToProps = (dispatch) => {

@@ -16,7 +16,7 @@ class Connection {
             return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
         }).join('&');
     }
-    connect(url,obj, method='GET'){
+    connect(url,obj, method='GET', requestID = null){
         let _fullUrl = this.defaultUrl + url;
         _fullUrl += "?" + this._dataGet + '&key=' + this.apiKey;
         this._init['method'] = method;
@@ -41,7 +41,7 @@ class Connection {
                     );
 
                 } else {
-                    obj.setData(data);
+                    obj.setData(data, requestID);
                 }
                 // obj.setLoaded(true);
                 //}
