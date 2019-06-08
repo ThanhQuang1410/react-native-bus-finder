@@ -163,6 +163,7 @@ class InputAddress extends AbstractComponent{
                     });
 
                     this.props.storeData('polyline', listDirection);
+                    this.props.storeData('direction_data', data);
                     this.parent.setState({
                         currentLocation: this.currentLocation,
                         destinationLocation: this.destinationLocation

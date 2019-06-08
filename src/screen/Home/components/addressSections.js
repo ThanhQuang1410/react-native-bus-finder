@@ -128,7 +128,7 @@ export default class AddressSection extends React.Component{
                         backgroundColor: 'white',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        marginBottom: verticalScale(165),
+                        marginBottom: !this.parent.props.direction_data ? verticalScale(165) : verticalScale(270),
                         shadowColor: '#000',
                         shadowOffset: { width: 0, height: 1 },
                         shadowOpacity: 0.2,
@@ -169,7 +169,7 @@ export default class AddressSection extends React.Component{
                     backgroundColor: 'white',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    marginBottom: verticalScale(165),
+                    marginBottom: !this.parent.props.direction_data ? verticalScale(165) : verticalScale(270),
                     shadowColor: '#000',
                     shadowOffset: { width: 0, height: 1 },
                     shadowOpacity: 0.2,
@@ -198,7 +198,7 @@ export default class AddressSection extends React.Component{
                 active={this.state.active}
                 direction="up"
                 position="bottomRight"
-                style={{ backgroundColor: Identify.mainColor, marginBottom: verticalScale(160) , width: 45, height: 45}}
+                style={{ backgroundColor: Identify.mainColor, marginBottom: !this.parent.props.direction_data ? verticalScale(160) : verticalScale(270) , width: 45, height: 45}}
                 onPress={() => this.setState(oldState => {
                     return {
                         active: !oldState.active

@@ -8,9 +8,7 @@ export default class ItemDrawer extends React.Component {
         if(this.props.data.hasOwnProperty('webView')){
             Linking.openURL(this.props.data.url)
         } else {
-            if(this.props.data.route === 'Home') {
-                this.props.navigation.closeDrawer()
-            } else if (this.props.data.route === 'LogOut') {
+            if (this.props.data.route === 'LogOut') {
                 firebase.auth().signOut().then(function() {
                     // Sign-out successful.
                     NavigationManager.openRootPage(this.props.navigation, 'Login')

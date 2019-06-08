@@ -9,11 +9,6 @@ class Drawer extends React.Component{
     initData(){
         let items = [
             {
-                icon_name: 'home',
-                title: 'Home',
-                route: 'Home'
-            },
-            {
                 icon_name: 'heart-outline',
                 title: 'Lộ trình ưa thích',
                 route: 'Favorite'
