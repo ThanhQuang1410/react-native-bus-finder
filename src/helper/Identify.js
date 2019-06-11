@@ -13,6 +13,14 @@ class Identify {
         return md5(text + Date.now());
     }
 
+    static isEmpty(obj) {
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
+
     static isEmptyObject(object) {
         let objectLenght = Object.keys(object);
         return objectLenght <= 0;

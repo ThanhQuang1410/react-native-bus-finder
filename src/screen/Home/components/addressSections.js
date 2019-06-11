@@ -1,10 +1,12 @@
 import React from 'react'
 import AbstractComponent from "../../../base/componetAbstarct";
 import {scale, verticalScale } from "react-native-size-matters";
-import {Text, View , Icon , Fab } from "native-base";
+import {Text, View , Icon , Fab , Toast } from "native-base";
 import {Dimensions, Image, TouchableOpacity , FlatList } from "react-native";
 import NavigationManager from "../../../helper/NavigationManager";
 import Identify from "../../../helper/Identify";
+import firebase from 'firebase';
+import md5 from 'md5';
 
 export default class AddressSection extends React.Component{
     constructor(props) {
@@ -15,6 +17,11 @@ export default class AddressSection extends React.Component{
         this.deviceWidth = Dimensions.get('window').width
         this.destination = this.props.navigation.getParam('destination')
         this.parent = this.props.parent
+    }
+    componentWillUnmount() {
+        this.setState({
+            active: false
+        })
     }
     handleSectionPress(){
         let params = {
@@ -151,18 +158,38 @@ export default class AddressSection extends React.Component{
                 </TouchableOpacity>
         )
     }
+    handleAddToFavorite() {
+        let params = {
+            polyline: this.parent.props.polyline,
+            currentLocation: this.parent.state.currentLocation,
+            destinationLocation: this.parent.state.destinationLocation,
+            direction_data: this.parent.props.direction_data,
+            location_map: this.parent.props.location_map
+        };
+        let key = md5(new Date());
+        firebase.database().ref('/users/' + this.parent.props.customer_data.uid + '/favorite_route/' + key).set(params).then(() => {
+            Toast.show({
+                text: 'Bạn đã lưu lộ trình thành công',
+                buttonText: 'OK',
+                buttonTextStyle: {fontWeight: '900', color: Identify.mainColor} ,
+                duration: 3000
+            })
+        });
+    }
     renderFavoriteFab(){
         return (
             <TouchableOpacity
                 onPress={() => {
-                    console.log({
-                        polyline: this.parent.props.polyline,
-                        currentLocation: this.parent.currentLocation,
-                        destinationLocation: this.parent.destinationLocation
-                    });
-                    this.setState({
-                        active: false
-                    })
+                    if(!this.parent.props.polyline) {
+                        Toast.show({
+                            text: 'Bạn chưa có lộ trình nào khả dụng',
+                            buttonText: 'OK',
+                            buttonTextStyle: {fontWeight: '900', color: Identify.mainColor} ,
+                            duration: 3000
+                        })
+                    } else {
+                        this.handleAddToFavorite()
+                    }
                 }}
                 activeOpacity={0.8}
                 style={{
@@ -206,7 +233,7 @@ export default class AddressSection extends React.Component{
                 })}>
                 <Icon type='MaterialCommunityIcons' name="bus" />
                 {this.renderFabCurrent()}
-                {this.renderFavoriteFab()}
+                {!this.parent.selectFavorite && this.renderFavoriteFab()}
             </Fab>
         )
     }

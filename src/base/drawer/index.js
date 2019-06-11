@@ -11,7 +11,7 @@ class Drawer extends React.Component{
             {
                 icon_name: 'heart-outline',
                 title: 'Lộ trình ưa thích',
-                route: 'Favorite'
+                route: 'FavoriteRoute'
             }
         ];
         if(this.props.data){
@@ -55,7 +55,7 @@ class Drawer extends React.Component{
                     dataArray={items}
                     renderRow={data => {
                         return (
-                            <Item data={data}/>
+                            <Item data={data} navigation={this.props.navigation}/>
                         );
                     }}
                 />
@@ -66,4 +66,4 @@ class Drawer extends React.Component{
 const mapStateToProps = (state) => {
     return { data: state.redux_data.app_config, customer_data: state.redux_data.customer_data };
 };
-export default connect(mapStateToProps)(Drawer);
+export default connect(mapStateToProps , null )(Drawer);

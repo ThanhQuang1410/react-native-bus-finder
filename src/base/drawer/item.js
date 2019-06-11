@@ -16,7 +16,7 @@ export default class ItemDrawer extends React.Component {
                     // An error happened.
                 });
             } else {
-                NavigationManager.openPage(this.props.navigation, this.props.data.route)
+                NavigationManager.openRootPage(this.props.navigation, this.props.data.route)
             }
         }
     }

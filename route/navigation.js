@@ -7,6 +7,7 @@ import InputAddress from '../src/screen/InputSection/pages'
 import Login from '../src/screen/Customer/pages'
 import Register from '../src/screen/Customer/pages/register'
 import Drawer from '../src/base/drawer'
+import FavoriteRoute from '../src/screen/Customer/pages/favoriteRoute'
 const Stack = createStackNavigator(
     {
         Splash: { screen: Splash },
@@ -14,6 +15,7 @@ const Stack = createStackNavigator(
         InputAddress: {screen: InputAddress},
         Login: {screen: Login},
         Register: {screen: Register},
+        FavoriteRoute: {screen: FavoriteRoute},
     },
     {
         headerMode: 'none'

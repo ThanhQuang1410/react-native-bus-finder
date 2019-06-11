@@ -147,7 +147,9 @@ class InputAddress extends AbstractComponent{
                     this.destinationLatLong = dataToStore;
                 }
                 this.props.storeData(key, dataToStore);
-                this.getDirection();
+                if(this.currentLocation !== '' && this.destinationLocation !== ''){
+                    this.getDirection();
+                }
                 break;
             case 'get_direction':
                 if(data.routes.length > 0){
@@ -169,12 +171,6 @@ class InputAddress extends AbstractComponent{
                         destinationLocation: this.destinationLocation
                     });
                     NavigationManager.backToPreviousPage(this.props.navigation);
-                    setTimeout(
-                        () => {
-                            this.parent.fitToMarker()
-                        },
-                        500
-                    );
                 } else {
                     Toast.show({
                         text: 'Không thể tìm lộ trình với địa chỉ trên. Mời bạn nhập lại!!',
