@@ -1,7 +1,7 @@
 import React from 'react'
 import AbstractComponent from "../../../base/componetAbstarct";
 import {Text, View , Icon , Fab , Toast , Card , Container , Content } from "native-base";
-import { TouchableOpacity} from 'react-native'
+import { TouchableOpacity , Image} from 'react-native'
 import {connect} from 'react-redux'
 import firebase from 'firebase'
 import Identify from "../../../helper/Identify";
@@ -51,9 +51,46 @@ class FavoriteRoute extends AbstractComponent{
                             this.handleItemSelected(item)
                         }}
                         key={Identify.makeid()}>
-                        <Card>
-                            <Text>{item.currentLocation}</Text>
-                            <Text>{item.destinationLocation}</Text>
+                        <Card
+                            style={{
+                                padding: 7
+                            }}
+                        >
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Image style={{width: 25, height: 25}} source={require('../../../../media/Images/current.png')}/>
+                                <View
+                                    style={{
+                                        flexGrow: 1,
+                                        width: '80%',
+                                        borderBottomWidth: 0.5,
+                                        borderBottomColor: '#c3c3c3',
+                                        marginLeft: 10,
+                                        paddingBottom: 10,
+
+                                    }}
+                                >
+                                    <Text>
+                                        {item.currentLocation}
+                                    </Text>
+                                </View>
+                            </View>
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    paddingTop: 10
+                                }}
+                            >
+                                <Image style={{width: 25, height: 30}} source={require('../../../../media/Images/destination.png')}/>
+                                <Text style={{flexGrow: 1, width: '80%', marginLeft: 10}}>{item.destinationLocation}</Text>
+                            </View>
                         </Card>
                     </TouchableOpacity>
 

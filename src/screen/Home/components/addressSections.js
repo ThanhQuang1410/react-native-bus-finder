@@ -166,6 +166,10 @@ export default class AddressSection extends React.Component{
             direction_data: this.parent.props.direction_data,
             location_map: this.parent.props.location_map
         };
+        if(this.parent.props.isUserUseCurrentPosition){
+            params.location_map['place_location'] = this.parent.props.current_location
+        }
+        console.log(params)
         let key = md5(new Date());
         firebase.database().ref('/users/' + this.parent.props.customer_data.uid + '/favorite_route/' + key).set(params).then(() => {
             Toast.show({

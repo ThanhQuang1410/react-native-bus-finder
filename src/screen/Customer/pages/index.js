@@ -1,7 +1,7 @@
 import React from 'react'
 import AbstractComponent from "../../../base/componetAbstarct";
 import { Container , Text , Content , View , Input , Item , Button , Icon } from 'native-base'
-import { Image , TouchableOpacity } from 'react-native';
+import { Platform , Image , TouchableOpacity } from 'react-native';
 import firebase from 'firebase'
 import NavigationManager from "../../../helper/NavigationManager";
 import {GoogleSigninButton, GoogleSignin} from 'react-native-google-signin'
@@ -57,9 +57,11 @@ export default class Login extends AbstractComponent{
         })
     }
     _signIn = () => {
-        GoogleSignin
-            .signIn()
+        this.showLoading('dialog');
+        let Signin = Platform.OS === 'ios' ? GoogleSignin.signIn() : GoogleSignin.getTokens();
+        Signin
             .then(data => {
+                console.log(data)
                 const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken,data.accessToken);
                 return firebase.auth().signInWithCredential(credential)
             })
@@ -69,7 +71,7 @@ export default class Login extends AbstractComponent{
             .catch(err => {
                 console.log(err)
             })
-    }
+    };
     render(){
         return(
             <Container

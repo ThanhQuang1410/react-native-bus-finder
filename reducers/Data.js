@@ -1,6 +1,6 @@
 const initialState = {
     isUserUseCurrentPosition: true,
-    showTraffic: true,
+    showTraffic: false,
     current_location: {},
     place_location: {},
     destination_location: {},

@@ -76,21 +76,26 @@ class Home extends AbstractComponent{
         this.props.storeData('current_location', data);
     }
     fitToMarker(){
-        let listMarker = [];
-        Object.keys(this.props.location_map).forEach(keys => {
-            let marker = this.props.location_map[keys];
-            if(marker.position.latitude && marker.position.longitude){
-                listMarker.push({
-                    latitude: marker.position.latitude,
-                    longitude: marker.position.longitude
-                })
-            }
-        });
-        this.mapRef.getNode().fitToCoordinates(listMarker, { edgePadding: { bottom: verticalScale(100), left: 20, right: 20 }, animated: true })
+        if(Platform.OS === 'ios') {
+            let listMarker = [];
+            Object.keys(this.props.location_map).forEach(keys => {
+                let marker = this.props.location_map[keys];
+                if(marker.position.latitude && marker.position.longitude){
+                    listMarker.push({
+                        latitude: marker.position.latitude,
+                        longitude: marker.position.longitude
+                    })
+                }
+            });
+            this.mapRef.getNode().fitToCoordinates(listMarker, { edgePadding: { bottom: verticalScale(100), left: 20, right: 20 }, animated: true })
+        } else {
+            this.mapRef.getNode().fitToElements(true);
+        }
     }
 
     createLayout(){
         let listMarker = [];
+        console.log(this.props.location_map)
         Object.keys(this.props.location_map).forEach(keys => {
             let marker = this.props.location_map[keys];
             let imgSource = busMarker;
@@ -104,7 +109,11 @@ class Home extends AbstractComponent{
         return(
             <Container>
                 <MapView.Animated
-                    onMapReady={() => this.fitToMarker()}
+                    onMapReady={() => {
+                        if(this.selectFavorite || Platform.OS === 'ios') {
+                            this.fitToMarker()
+                        }
+                    }}
                     ref={(ref) => { this.mapRef = ref }}
                     provider={PROVIDER_GOOGLE}
                     style={{ flex: 1 }}

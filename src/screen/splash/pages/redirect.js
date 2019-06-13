@@ -2,7 +2,6 @@ import React from 'react';
 import NavigationManager from "../../../helper/NavigationManager";
 
 import firebase from 'firebase';
-
 export default class Redirect extends React.Component{
     componentWillMount(){
         NavigationManager.saveNavigation(this.props.navigation);
