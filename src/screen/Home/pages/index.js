@@ -10,6 +10,7 @@ import AddressSection from "../components/addressSections";
 import {scale, verticalScale} from "react-native-size-matters";
 import Connection from "../../../helper/Connection";
 import MarkerComponent from "../components/marker";
+import FabSection from "../components/Fab";
 import Identify from "../../../helper/Identify";
 
 class Home extends AbstractComponent{
@@ -17,13 +18,13 @@ class Home extends AbstractComponent{
         super(props);
         let currentLocation = this.props.navigation.getParam('currentLocation') ? this.props.navigation.getParam('currentLocation') : null;
         let destinationLocation = this.props.navigation.getParam('destinationLocation') ? this.props.navigation.getParam('destinationLocation') : null;
+        this.selectFavorite = this.props.navigation.getParam('selectFavorite');
         this.state = {
             ...this.state,
-            currentLocation: currentLocation ,
-            destinationLocation: destinationLocation
+            currentLocation: !this.selectFavorite ? null : currentLocation ,
+            destinationLocation: !this.selectFavorite ? null : destinationLocation
         };
         this.customerData = this.props.navigation.getParam('customerData');
-        this.selectFavorite = this.props.navigation.getParam('selectFavorite');
         this.mapRef = undefined;
     }
 
@@ -95,7 +96,6 @@ class Home extends AbstractComponent{
 
     createLayout(){
         let listMarker = [];
-        console.log(this.props.location_map)
         Object.keys(this.props.location_map).forEach(keys => {
             let marker = this.props.location_map[keys];
             let imgSource = busMarker;
@@ -128,6 +128,7 @@ class Home extends AbstractComponent{
                     {listMarker}
                     {this.props.polyline && <MapView.Polyline coordinates={this.props.polyline} strokeWidth={3} strokeColor={'#008e43'}/>}
                 </MapView.Animated>
+                <FabSection navigation={this.props.navigation} parent={this}/>
                 <AddressSection navigation={this.props.navigation} parent={this}/>
             </Container>
         )

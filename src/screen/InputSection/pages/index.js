@@ -171,6 +171,12 @@ class InputAddress extends AbstractComponent{
                         destinationLocation: this.destinationLocation
                     });
                     NavigationManager.backToPreviousPage(this.props.navigation);
+                    setTimeout(
+                        () => {
+                            this.parent.fitToMarker()
+                        },
+                        500
+                    )
                 } else {
                     Toast.show({
                         text: 'Không thể tìm lộ trình với địa chỉ trên. Mời bạn nhập lại!!',

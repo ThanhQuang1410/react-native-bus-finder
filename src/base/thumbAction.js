@@ -2,6 +2,7 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {Icon} from 'native-base'
 import {scale, verticalScale} from "react-native-size-matters";
+import NavigationManager from "../helper/NavigationManager";
 
 export default class ThumbAction extends React.Component{
     constructor(props){
@@ -11,7 +12,7 @@ export default class ThumbAction extends React.Component{
         if(this.props.navigation.state.routeName === 'Home'){
             this.props.navigation.openDrawer();
         }else {
-            this.props.navigation.goBack(null)
+            NavigationManager.backToPreviousPage(this.props.navigation)
         }
     }
     render(){

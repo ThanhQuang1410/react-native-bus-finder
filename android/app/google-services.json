@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "398689985179-milfnu9q5godiiqrbm9epornb5pmdard.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bushanoi",
+            "certificate_hash": "42e94d37fef9c3982e44d887a598e1b2de28d537"
+          }
+        },
+        {
           "client_id": "398689985179-fmvdt0suh4t8j8bvanjl0mr7ojucj4bi.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -135,9 +135,7 @@ android {
 
 dependencies {
     implementation project(':react-native-splash-screen')
-    implementation (project(':react-native-google-signin')) {
-        exclude group: 'com.google.android.gms'
-    }
+    implementation project(":react-native-google-signin")
     implementation project(':react-native-exit-app')
     implementation project(':react-native-restart')
     implementation project(':react-native-maps')
@@ -147,9 +145,9 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     compile "com.google.firebase:firebase-core:16.0.3"
-    compile "com.google.firebase:firebase-auth:16.0.3"
     compile "com.google.android.gms:play-services-base:16.0.1"
-    compile "com.google.android.gms:play-services-auth:16.0.1"
+    implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
 
 }

@@ -5,6 +5,8 @@ import { Platform , Image , TouchableOpacity } from 'react-native';
 import firebase from 'firebase'
 import NavigationManager from "../../../helper/NavigationManager";
 import {GoogleSigninButton, GoogleSignin} from 'react-native-google-signin'
+
+const provider = new firebase.auth.GoogleAuthProvider();
 export default class Login extends AbstractComponent{
     constructor(props) {
         super(props);
@@ -20,7 +22,7 @@ export default class Login extends AbstractComponent{
     }
     componentDidMount(){
         GoogleSignin.configure({
-            iosClientId: '398689985179-vg92rts6k75ou0s25ov1l6gta2dvqdt1.apps.googleusercontent.com',
+            iosClientId: '398689985179-vg92rts6k75ou0s25ov1l6gta2dvqdt1.apps.googleusercontent.com'
         });
     }
     signIn () {
@@ -56,10 +58,9 @@ export default class Login extends AbstractComponent{
             [key]: '#c3c3c3'
         })
     }
-    _signIn = () => {
+    _signIn = async () => {
         this.showLoading('dialog');
-        let Signin = Platform.OS === 'ios' ? GoogleSignin.signIn() : GoogleSignin.getTokens();
-        Signin
+        GoogleSignin.signIn()
             .then(data => {
                 console.log(data)
                 const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken,data.accessToken);
@@ -71,6 +72,7 @@ export default class Login extends AbstractComponent{
             .catch(err => {
                 console.log(err)
             })
+
     };
     render(){
         return(

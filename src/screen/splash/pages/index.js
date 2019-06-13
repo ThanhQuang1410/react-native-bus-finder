@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, View , Text , Spinner } from 'native-base';
-import { Image } from 'react-native'
+import { Image , Platform } from 'react-native'
 import ComponectAbstract from '../../../base/componetAbstarct'
 import { connect } from 'react-redux'
 import NavigationManager from "../../../helper/NavigationManager";
@@ -51,7 +51,7 @@ class Splash extends ComponectAbstract{
         })
     }
     render(){
-        if(!this.props.data){
+        if(!this.props.data || Platform.OS === 'android'){
             return(
                 <Container style={{
                     flex: 1,

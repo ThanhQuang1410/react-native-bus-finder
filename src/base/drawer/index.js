@@ -38,7 +38,9 @@ class Drawer extends React.Component{
                 style={{
                     justifyContent: 'center',
                     alignItems: 'center',
-                    marginBottom: 15
+                    marginBottom: 15,
+                    marginTop: 20,
+                    borderRadius: 25, overflow: 'hidden'
                 }}
             >
                 {avt}
