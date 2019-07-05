@@ -3,7 +3,8 @@ import {Text, View , Icon , Fab , Toast } from "native-base";
 import {Dimensions, Image, TouchableOpacity , FlatList } from "react-native";
 import Identify from "../../../helper/Identify";
 import {scale, verticalScale } from "react-native-size-matters";
-
+import md5 from 'md5'
+import firebase from 'firebase'
 export default class FabSection extends React.Component {
     constructor(props) {
         super(props);
